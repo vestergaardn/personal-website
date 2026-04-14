@@ -15,7 +15,7 @@ export default function Stack() {
     <div className="min-h-screen px-6 py-16 sm:py-24">
       <div className="mx-auto max-w-xl">
         <h1 className="font-serif text-2xl">Stack</h1>
-        <p className="mt-1 text-sm text-gray-500">Last updated April 2025</p>
+        <p className="mt-1 text-sm text-gray-500">Last updated April 2026</p>
 
         <ul className="mt-10 space-y-6">
           {tools.map((tool) => (
