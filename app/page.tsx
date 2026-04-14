@@ -14,6 +14,9 @@ export default function Home() {
           <Link href="/stack" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
             Stack
           </Link>
+          <Link href="/people" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            People
+          </Link>
         </nav>
       </div>
     </div>
