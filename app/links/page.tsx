@@ -2,6 +2,11 @@ import Link from "next/link";
 
 const links = [
   {
+    title: "Benji Taylor",
+    url: "https://benji.org/",
+    description: "Personal website of a designer who has founded consumer software companies and leads design at SpaceX.",
+  },
+  {
     title: "Historical Tech Tree",
     url: "https://www.historicaltechtree.com/",
     description: "An interactive visualization of how technologies evolved and influenced each other throughout history.",
