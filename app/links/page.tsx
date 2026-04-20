@@ -11,6 +11,11 @@ const links = [
     url: "https://www.historicaltechtree.com/",
     description: "An interactive visualization of how technologies evolved and influenced each other throughout history.",
   },
+  {
+    title: "Two Accidental Tyrannies",
+    url: "https://andymatuschak.org/tat/",
+    description: "Andy Matuschak on how coding agents and composable software could free interface design from programmer gatekeeping and app silos.",
+  },
 ];
 
 export default function LinksPage() {
