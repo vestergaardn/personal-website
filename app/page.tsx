@@ -1,23 +1,112 @@
-import Link from "next/link";
+import { CopenhagenTime } from "./components/CopenhagenTime";
+import { ThemeToggle } from "./components/ThemeToggle";
+
+const timeline = [
+  { year: "2026", project: "Lorem Ipsum", type: "Dolor sit amet" },
+  { year: "2025", project: "Consectetur", type: "Adipiscing elit" },
+  { year: "2024", project: "Sed Eiusmod", type: "Tempor incididunt" },
+  { year: "2023", project: "Ut Labore", type: "Magna aliqua" },
+  { year: "2022", project: "Enim Minim", type: "Veniam quis" },
+  { year: "2021", project: "Nostrud Exercitation", type: "Ullamco laboris" },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="text-center">
-        <p className="font-bold">Christian Vestergaard</p>
-        <p className="mt-1 text-sm text-gray-500">Designer and Engineer</p>
-        <nav className="mt-4 flex gap-4 justify-center">
-          <Link href="/links" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
-            Links
-          </Link>
-          <Link href="/stack" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
-            Stack
-          </Link>
-          <Link href="/people" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
-            People
-          </Link>
-        </nav>
-      </div>
+    <div className="mx-auto max-w-[600px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#111] dark:text-[#ededed]">
+      <header className="mb-4 flex items-start justify-between">
+        <div>
+          <h1 className="font-medium">Christian Vestergaard</h1>
+          <div className="text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+            <CopenhagenTime />
+          </div>
+        </div>
+        <ThemeToggle />
+      </header>
+
+      <section className="border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
+        <p className="mb-5">
+          Lorem ipsum dolor sit amet,{" "}
+          <a href="#" className="underline underline-offset-2">
+            consectetur
+          </a>
+          , a 5,000+ adipiscing library used by design teams at Zoho, JusPay,
+          and Fashion Nova. What started as a side project in 2023 has kept
+          growing.
+        </p>
+        <p className="mb-5">
+          Ut enim ad minim veniam at{" "}
+          <a href="#" className="underline underline-offset-2">
+            Indent
+          </a>
+          , quis nostrud exercitation ullamco. Ut aliquip ex ea commodo,
+          consequat duis aute irure.
+        </p>
+        <p className="mb-5">
+          Duis aute irure dolor in reprehenderit. Whatever feels inevitable in a
+          finished product is just someone who refused to look away.
+        </p>
+        <p className="mb-5">
+          Off the clock, I watch{" "}
+          <a href="#" className="underline underline-offset-2">
+            films
+          </a>{" "}
+          and listen to{" "}
+          <a href="#" className="underline underline-offset-2">
+            music
+          </a>
+          .
+        </p>
+        <p className="mb-0">
+          Reach me at{" "}
+          <a href="#" className="underline underline-offset-2">
+            @lorem_ipsum
+          </a>
+          ,{" "}
+          <a href="#" className="underline underline-offset-2">
+            hi@example.com
+          </a>
+          , or on{" "}
+          <a href="#" className="underline underline-offset-2">
+            GitHub
+          </a>
+          .
+        </p>
+      </section>
+
+      <section className="border-b border-[rgba(17,17,17,0.08)] py-7 dark:border-[rgba(255,255,255,0.08)]">
+        <div className="flex items-center gap-0 px-2 py-1.5 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+          <span className="w-[37px] shrink-0">Year</span>
+          <span className="w-5 shrink-0" aria-hidden />
+          <span className="flex-1">Project</span>
+          <span className="shrink-0">Type</span>
+        </div>
+        {timeline.map((entry) => (
+          <a
+            key={`${entry.year}-${entry.project}`}
+            href="#"
+            className="flex items-center gap-0 px-2 py-1.5 hover:bg-[rgba(17,17,17,0.03)] dark:hover:bg-[rgba(255,255,255,0.04)]"
+          >
+            <span className="w-[37px] shrink-0 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+              {entry.year}
+            </span>
+            <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M12.4995 5.66968L7.49951 14.3299"
+                  stroke="rgba(17,17,17,0.3)"
+                  strokeWidth="1.3"
+                  strokeLinecap="round"
+                  className="dark:stroke-[rgba(255,255,255,0.3)]"
+                />
+              </svg>
+            </span>
+            <span className="flex-1">{entry.project}</span>
+            <span className="shrink-0 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+              {entry.type}
+            </span>
+          </a>
+        ))}
+      </section>
     </div>
   );
 }
