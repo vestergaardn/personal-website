@@ -33,46 +33,20 @@ export default async function Home() {
       </header>
 
       <section className="border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
-        <p className="mb-5">
-          Lorem ipsum dolor sit amet,{" "}
-          <a href="#" className="underline underline-offset-2">
-            consectetur
-          </a>
-          , a 5,000+ adipiscing library used by design teams at Zoho, JusPay,
-          and Fashion Nova. What started as a side project in 2023 has kept
-          growing.
-        </p>
-        <p className="mb-5">
-          Ut enim ad minim veniam at{" "}
-          <a href="#" className="underline underline-offset-2">
-            Indent
-          </a>
-          , quis nostrud exercitation ullamco. Ut aliquip ex ea commodo,
-          consequat duis aute irure.
-        </p>
-        <p className="mb-5">
-          Duis aute irure dolor in reprehenderit. Whatever feels inevitable in a
-          finished product is just someone who refused to look away.
-        </p>
-        <p className="mb-5">
-          Off the clock, I watch{" "}
-          <a href="#" className="underline underline-offset-2">
-            films
-          </a>{" "}
-          and listen to{" "}
-          <a href="#" className="underline underline-offset-2">
-            music
-          </a>
-          .
-        </p>
         <p className="mb-0">
           Reach me at{" "}
-          <a href="#" className="underline underline-offset-2">
-            @lorem_ipsum
+          <a
+            href="https://x.com/CVestergaard_"
+            className="underline underline-offset-2"
+          >
+            @CVestergaard_
           </a>
           ,{" "}
-          <a href="#" className="underline underline-offset-2">
-            hi@example.com
+          <a
+            href="mailto:chris.vestergaardn@gmail.com"
+            className="underline underline-offset-2"
+          >
+            chris.vestergaardn@gmail.com
           </a>
           , or on{" "}
           <GitHubLink
