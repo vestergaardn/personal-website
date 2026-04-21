@@ -1,5 +1,9 @@
 import { CopenhagenTime } from "./components/CopenhagenTime";
+import { GitHubLink } from "./components/GitHubLink";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { getGitHubContributions, getGitHubProfile } from "./lib/github";
+
+const GITHUB_USERNAME = "vestergaardn";
 
 const timeline = [
   { year: "2026", project: "Lorem Ipsum", type: "Dolor sit amet" },
@@ -10,7 +14,12 @@ const timeline = [
   { year: "2021", project: "Nostrud Exercitation", type: "Ullamco laboris" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const [profile, contributions] = await Promise.all([
+    getGitHubProfile(GITHUB_USERNAME),
+    getGitHubContributions(GITHUB_USERNAME, new Date().getFullYear()),
+  ]);
+
   return (
     <div className="mx-auto max-w-[600px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#111] dark:text-[#ededed]">
       <header className="mb-4 flex items-start justify-between">
@@ -66,9 +75,11 @@ export default function Home() {
             hi@example.com
           </a>
           , or on{" "}
-          <a href="#" className="underline underline-offset-2">
-            GitHub
-          </a>
+          <GitHubLink
+            username={GITHUB_USERNAME}
+            profile={profile}
+            contributions={contributions}
+          />
           .
         </p>
       </section>
