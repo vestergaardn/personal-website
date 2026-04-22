@@ -1,13 +1,17 @@
+import { Suspense } from "react";
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
 import { PostbuddyTimelineRow } from "./components/PostbuddyTimelineRow";
-import { StravaLink } from "./components/StravaLink";
+import {
+  StravaRaceLink,
+  StravaRaceLinkFallback,
+} from "./components/StravaRaceLink";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { getGitHubContributions, getGitHubProfile } from "./lib/github";
-import { getStravaSummary } from "./lib/strava";
+
+export const revalidate = 3600;
 
 const GITHUB_USERNAME = "vestergaardn";
-const STRAVA_PROFILE_URL = "https://www.strava.com/athletes/51203029";
 
 type TimelineEntry = {
   year: string;
@@ -27,10 +31,9 @@ const timeline: TimelineEntry[] = [
 ];
 
 export default async function Home() {
-  const [profile, contributions, stravaSummary] = await Promise.all([
+  const [profile, contributions] = await Promise.all([
     getGitHubProfile(GITHUB_USERNAME),
     getGitHubContributions(GITHUB_USERNAME, new Date().getFullYear()),
-    getStravaSummary(),
   ]);
 
   return (
@@ -56,9 +59,9 @@ export default async function Home() {
         </p>
         <p className="mb-0">
           Off the clock, I{" "}
-          <StravaLink href={STRAVA_PROFILE_URL} summary={stravaSummary}>
-            race my bike
-          </StravaLink>{" "}
+          <Suspense fallback={<StravaRaceLinkFallback />}>
+            <StravaRaceLink />
+          </Suspense>{" "}
           and take on endurance challenges.
         </p>
         <p className="mb-0">
