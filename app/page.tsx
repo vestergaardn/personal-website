@@ -1,12 +1,20 @@
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
+import { PostbuddyTimelineRow } from "./components/PostbuddyTimelineRow";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { getGitHubContributions, getGitHubProfile } from "./lib/github";
 
 const GITHUB_USERNAME = "vestergaardn";
 
-const timeline = [
-  { year: "2026", project: "Lorem Ipsum", type: "Dolor sit amet" },
+type TimelineEntry = {
+  year: string;
+  project: string;
+  type: string;
+  href?: string;
+};
+
+const timeline: TimelineEntry[] = [
+  { year: "2022", project: "Postbuddy", type: "Startup", href: "/carrying-alone" },
   { year: "2025", project: "Consectetur", type: "Adipiscing elit" },
   { year: "2024", project: "Sed Eiusmod", type: "Tempor incididunt" },
   { year: "2023", project: "Ut Labore", type: "Magna aliqua" },
@@ -58,38 +66,53 @@ export default async function Home() {
       </section>
 
       <section className="border-b border-[rgba(17,17,17,0.08)] py-7 dark:border-[rgba(255,255,255,0.08)]">
-        <div className="flex items-center gap-0 px-2 py-1.5 text-[#9d9d9d] dark:text-[#696969]">
-          <span className="w-[37px] shrink-0">Year</span>
-          <span className="w-5 shrink-0" aria-hidden />
-          <span className="flex-1">Project</span>
-          <span className="shrink-0">Type</span>
-        </div>
-        {timeline.map((entry) => (
-          <a
-            key={`${entry.year}-${entry.project}`}
-            href="#"
-            className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
-          >
-            <span className="w-[37px] shrink-0 text-[#9d9d9d] dark:text-[#696969]">
-              {entry.year}
-            </span>
-            <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path
-                  d="M12.4995 5.66968L7.49951 14.3299"
-                  stroke="rgba(17,17,17,0.3)"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                  className="dark:stroke-[rgba(255,255,255,0.3)]"
+        <div className="relative">
+          <div className="flex items-center gap-0 px-2 py-1.5 text-[#9d9d9d] dark:text-[#696969]">
+            <span className="w-[37px] shrink-0">Year</span>
+            <span className="w-5 shrink-0" aria-hidden />
+            <span className="flex-1">Project</span>
+            <span className="shrink-0">Type</span>
+          </div>
+          {timeline.map((entry) => {
+            if (entry.project === "Postbuddy") {
+              return (
+                <PostbuddyTimelineRow
+                  key={`${entry.year}-${entry.project}`}
+                  year={entry.year}
+                  project={entry.project}
+                  type={entry.type}
+                  href={entry.href ?? "#"}
                 />
-              </svg>
-            </span>
-            <span className="flex-1">{entry.project}</span>
-            <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
-              {entry.type}
-            </span>
-          </a>
-        ))}
+              );
+            }
+            return (
+              <a
+                key={`${entry.year}-${entry.project}`}
+                href="#"
+                className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
+              >
+                <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#9d9d9d] dark:text-[#696969]">
+                  {entry.year}
+                </span>
+                <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M12.4995 5.66968L7.49951 14.3299"
+                      stroke="rgba(17,17,17,0.3)"
+                      strokeWidth="1.3"
+                      strokeLinecap="round"
+                      className="dark:stroke-[rgba(255,255,255,0.3)]"
+                    />
+                  </svg>
+                </span>
+                <span className="flex-1">{entry.project}</span>
+                <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
+                  {entry.type}
+                </span>
+              </a>
+            );
+          })}
+        </div>
       </section>
     </div>
   );
