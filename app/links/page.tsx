@@ -22,7 +22,7 @@ export default function LinksPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-lg px-6">
-        <Link href="/" className="text-sm text-gray-400 hover:text-gray-600">
+        <Link href="/" className="text-sm">
           ← Back
         </Link>
         <h1 className="mt-4 text-lg font-bold">Interesting Links</h1>
@@ -35,7 +35,7 @@ export default function LinksPage() {
                 rel="noopener noreferrer"
                 className="group block"
               >
-                <span className="font-medium group-hover:underline">
+                <span className="font-medium">
                   {link.title}
                 </span>
                 <p className="mt-0.5 text-sm text-gray-500">
