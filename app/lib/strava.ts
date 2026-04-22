@@ -61,7 +61,7 @@ async function getAccessToken(): Promise<string | null> {
       grant_type: "refresh_token",
       refresh_token: refreshToken,
     }),
-    cache: "no-store",
+    next: { revalidate: 1800 },
   });
   if (!res.ok) return null;
   const data = (await res.json()) as { access_token?: string };
