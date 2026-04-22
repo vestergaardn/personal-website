@@ -149,7 +149,7 @@ export function StravaCalendar({ summary }: { summary: StravaSummary }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 mb-1 text-[12px] font-medium text-gray-400">
+      <div className="grid grid-cols-7 mb-1 text-[11px] font-medium text-gray-400">
         {DOW.map((label, i) => (
           <div key={i} className="flex justify-center">
             {label}
