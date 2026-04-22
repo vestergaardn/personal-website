@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { defineSound, ensureReady } from "@web-kits/audio";
 
 const playPop = defineSound({
@@ -9,27 +9,52 @@ const playPop = defineSound({
   gain: 0.35,
 });
 
+type Theme = "light" | "dark";
+
+function resolveInitialTheme(): Theme {
+  const stored = localStorage.getItem("theme");
+  if (stored === "dark" || stored === "light") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+let themeSnapshot: Theme | null = null;
+const themeListeners = new Set<() => void>();
+
+function notify() {
+  themeListeners.forEach((l) => l());
+}
+
+function subscribeTheme(callback: () => void) {
+  if (themeSnapshot === null) {
+    themeSnapshot = resolveInitialTheme();
+    document.documentElement.dataset.theme = themeSnapshot;
+  }
+  themeListeners.add(callback);
+  queueMicrotask(callback);
+  return () => {
+    themeListeners.delete(callback);
+  };
+}
+
+const getThemeSnapshot = () => themeSnapshot;
+const getThemeServerSnapshot = (): Theme | null => null;
+
+function setTheme(next: Theme) {
+  themeSnapshot = next;
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem("theme", next);
+  notify();
+}
+
 export function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
-  const [dark, setDark] = useState(false);
+  const theme = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getThemeServerSnapshot);
   const [hovered, setHovered] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    const prefersDark =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const stored = localStorage.getItem("theme");
-    const isDark = stored ? stored === "dark" : prefersDark;
-    setDark(isDark);
-    document.documentElement.dataset.theme = isDark ? "dark" : "light";
-  }, []);
+  const mounted = theme !== null;
+  const dark = theme === "dark";
 
   const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.dataset.theme = next ? "dark" : "light";
-    localStorage.setItem("theme", next ? "dark" : "light");
+    setTheme(dark ? "light" : "dark");
     void ensureReady().then(() => playPop());
   };
 
