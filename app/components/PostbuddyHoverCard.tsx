@@ -20,9 +20,10 @@ export function PostbuddyHoverCard({
       transition={{ duration: open ? 0.2 : 0.15, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="absolute top-0 bottom-0 left-full z-50 ml-[24px]"
+      className="absolute top-0 left-full z-50 ml-[24px]"
       style={{
         width: 200,
+        height: 224,
         pointerEvents: open ? "auto" : "none",
         transformOrigin: "left center",
       }}
