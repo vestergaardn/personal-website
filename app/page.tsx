@@ -14,7 +14,6 @@ type TimelineEntry = {
   project: string;
   type: string;
   href?: string;
-  smallCaps?: boolean;
 };
 
 const timeline: TimelineEntry[] = [
@@ -23,7 +22,6 @@ const timeline: TimelineEntry[] = [
     project: "nine three quarters",
     type: "Free lab for builders",
     href: "https://www.ninethreequarters.com/",
-    smallCaps: true,
   },
   { year: "2022", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
 ];
@@ -124,12 +122,7 @@ export default async function Home() {
                     />
                   </svg>
                 </span>
-                <span
-                  className="flex-1"
-                  style={entry.smallCaps ? { fontVariant: "small-caps" } : undefined}
-                >
-                  {entry.project}
-                </span>
+                <span className="flex-1">{entry.project}</span>
                 <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
                   {entry.type}
                 </span>
