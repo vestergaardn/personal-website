@@ -7,7 +7,7 @@
 }
 
 :root[data-theme="dark"] {
-  --background: #111730;
+  --background: #222222;
   --foreground: #ededed;
 }
 
@@ -23,6 +23,19 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), Inter, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  a {
+    color: #575757;
+    text-decoration: underline;
+    text-decoration-color: #e7e7e7;
+  }
+
+  :root[data-theme="dark"] a {
+    color: #b1b1b1;
+    text-decoration-color: #2b2b2b;
+  }
 }
 
 /* ========================================
