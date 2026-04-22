@@ -6,7 +6,13 @@ export type StravaSport =
   | "other";
 
 export type StravaActivity = {
+  id: number;
   date: string; // YYYY-MM-DD in athlete's local time
+  sport: StravaSport;
+};
+
+export type StravaDayActivity = {
+  id: number;
   sport: StravaSport;
 };
 
@@ -25,7 +31,7 @@ export type StravaDay =
       day: number;
       isToday: boolean;
       isFuture: boolean;
-      sports: StravaSport[]; // empty = no activity
+      activities: StravaDayActivity[]; // empty = no activity
     };
 
 const TOKEN_URL = "https://www.strava.com/oauth/token";
@@ -128,6 +134,7 @@ async function fetchActivities(
     });
     if (!res.ok) break;
     const batch = (await res.json()) as Array<{
+      id: number;
       start_date_local: string;
       sport_type?: string;
       type?: string;
@@ -135,8 +142,12 @@ async function fetchActivities(
     if (batch.length === 0) break;
     for (const a of batch) {
       const date = a.start_date_local?.slice(0, 10);
-      if (!date) continue;
-      all.push({ date, sport: classifySport(a.sport_type ?? a.type ?? "") });
+      if (!date || typeof a.id !== "number") continue;
+      all.push({
+        id: a.id,
+        date,
+        sport: classifySport(a.sport_type ?? a.type ?? ""),
+      });
     }
     if (batch.length < 100) break;
     page += 1;
@@ -188,10 +199,10 @@ function buildRollingWeeks(
   activities: StravaActivity[],
   today: Date
 ): Array<Array<StravaDay>> {
-  const byDate = new Map<string, StravaSport[]>();
+  const byDate = new Map<string, StravaDayActivity[]>();
   for (const a of activities) {
     const list = byDate.get(a.date) ?? [];
-    list.push(a.sport);
+    list.push({ id: a.id, sport: a.sport });
     byDate.set(a.date, list);
   }
 
@@ -216,7 +227,7 @@ function buildRollingWeeks(
       day: d.getDate(),
       isToday: iso === todayIso,
       isFuture: d > todayMidnight,
-      sports: byDate.get(iso) ?? [],
+      activities: byDate.get(iso) ?? [],
     });
   }
 
