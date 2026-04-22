@@ -42,7 +42,14 @@ export function GitHubHoverCard({
         />
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium leading-snug text-gray-900">
-            {profile.login}
+            <a
+              href="https://github.com/vestergaardn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline hover:no-underline"
+            >
+              {profile.login}
+            </a>
           </p>
           <p className="mt-0.5 text-sm leading-snug text-gray-600">
             {statusLine}
