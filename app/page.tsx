@@ -14,15 +14,18 @@ type TimelineEntry = {
   project: string;
   type: string;
   href?: string;
+  smallCaps?: boolean;
 };
 
 const timeline: TimelineEntry[] = [
-  { year: "2022", project: "Postbuddy", type: "Startup", href: "/carrying-alone" },
-  { year: "2025", project: "Consectetur", type: "Adipiscing elit" },
-  { year: "2024", project: "Sed Eiusmod", type: "Tempor incididunt" },
-  { year: "2023", project: "Ut Labore", type: "Magna aliqua" },
-  { year: "2022", project: "Enim Minim", type: "Veniam quis" },
-  { year: "2021", project: "Nostrud Exercitation", type: "Ullamco laboris" },
+  {
+    year: "2026",
+    project: "nine three quarters",
+    type: "Free lab for builders",
+    href: "https://www.ninethreequarters.com/",
+    smallCaps: true,
+  },
+  { year: "2022", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
 ];
 
 export default async function Home() {
@@ -98,10 +101,13 @@ export default async function Home() {
                 />
               );
             }
+            const isExternal = entry.href?.startsWith("http");
             return (
               <a
                 key={`${entry.year}-${entry.project}`}
-                href="#"
+                href={entry.href ?? "#"}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
                 className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
               >
                 <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#9d9d9d] dark:text-[#696969]">
@@ -118,7 +124,12 @@ export default async function Home() {
                     />
                   </svg>
                 </span>
-                <span className="flex-1">{entry.project}</span>
+                <span
+                  className="flex-1"
+                  style={entry.smallCaps ? { fontVariant: "small-caps" } : undefined}
+                >
+                  {entry.project}
+                </span>
                 <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
                   {entry.type}
                 </span>
