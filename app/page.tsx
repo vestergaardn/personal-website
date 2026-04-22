@@ -43,10 +43,10 @@ export default async function Home() {
           </a>
           ,{" "}
           <a
-            href="mailto:chris.vestergaardn@gmail.com"
+            href="mailto:hello@vestergaardn.com"
             className="text-[#575757]"
           >
-            chris.vestergaardn@gmail.com
+            hello@vestergaardn.com
           </a>
           , or on{" "}
           <GitHubLink
