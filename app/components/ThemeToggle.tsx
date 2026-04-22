@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { defineSound, ensureReady } from "@web-kits/audio";
+
+const playPop = defineSound({
+  source: { type: "sine", frequency: { start: 400, end: 150 } },
+  envelope: { decay: 0.05 },
+  gain: 0.35,
+});
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +30,7 @@ export function ThemeToggle() {
     setDark(next);
     document.documentElement.dataset.theme = next ? "dark" : "light";
     localStorage.setItem("theme", next ? "dark" : "light");
+    void ensureReady().then(() => playPop());
   };
 
   const thumbWidth = hovered ? 26 : 20;
