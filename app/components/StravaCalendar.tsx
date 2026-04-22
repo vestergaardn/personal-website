@@ -90,18 +90,25 @@ function DayCell({ cell }: { cell: StravaDay }) {
     return <div className="aspect-square" />;
   }
 
-  const hasActivity = cell.sports.length > 0;
+  const hasActivity = cell.activities.length > 0;
 
   if (cell.isFuture && !hasActivity) {
     return <div className="aspect-square" />;
   }
 
   if (hasActivity) {
+    const first = cell.activities[0];
     return (
       <div className="flex aspect-square items-center justify-center">
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white">
-          <SportIcon sport={cell.sports[0]} />
-        </div>
+        <a
+          href={`https://www.strava.com/activities/${first.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${first.sport} activity on Strava`}
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white transition-transform hover:scale-110"
+        >
+          <SportIcon sport={first.sport} />
+        </a>
       </div>
     );
   }
