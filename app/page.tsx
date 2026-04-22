@@ -32,12 +32,22 @@ export default async function Home() {
         <ThemeToggle />
       </header>
 
-      <section className="border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
+      <section className="flex flex-col gap-5 border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
         <p className="mb-0">
-          Reach me at{" "}
-          <a href="https://x.com/CVestergaard_">@CVestergaard_</a>,{" "}
-          <a href="mailto:hello@vestergaardn.com">hello@vestergaardn.com</a>, or
-          on{" "}
+          I’m a designer and engineer. I’m drawn to the details that most
+          people never notice, but always feel.
+        </p>
+        <p className="mb-0">
+          I currently work on a new company with a friend, and co-founder.
+          Before that, I founded Postbuddy, who recently got acquired.
+        </p>
+        <p className="mb-0">
+          Off the clock, I race my bike and take on endurance challenges.
+        </p>
+        <p className="mb-0">
+          You can reach out to me on{" "}
+          <a href="mailto:hello@vestergaardn.com">hello@vestergaardn.com</a>{" "}
+          or see more of my work on{" "}
           <GitHubLink
             username={GITHUB_USERNAME}
             profile={profile}
