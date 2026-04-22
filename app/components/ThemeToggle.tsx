@@ -33,7 +33,8 @@ export function ThemeToggle() {
     void ensureReady().then(() => playPop());
   };
 
-  const thumbWidth = hovered ? 26 : 20;
+  const hoverWidth = dark ? 23 : 26;
+  const thumbWidth = hovered ? hoverWidth : 20;
   const thumbLeft = mounted && dark ? 52 - thumbWidth - 4 : 4;
 
   return (
