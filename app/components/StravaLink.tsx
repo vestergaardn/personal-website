@@ -39,6 +39,8 @@ export function StravaLink({
       className="relative"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
     >
       <a href={href} target="_blank" rel="noopener noreferrer">
         {children}
