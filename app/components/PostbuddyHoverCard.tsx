@@ -4,23 +4,24 @@ import { motion } from "motion/react";
 
 export function PostbuddyHoverCard({
   href,
+  open,
   onMouseEnter,
   onMouseLeave,
 }: {
   href: string;
+  open: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -4 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -4, transition: { duration: 0.15 } }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
+      animate={open ? { opacity: 1, x: 0 } : { opacity: 0, x: -4 }}
+      transition={{ duration: open ? 0.2 : 0.15, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="pointer-events-auto absolute top-0 bottom-0 left-full z-50 ml-[24px]"
-      style={{ width: 200 }}
+      className="absolute top-0 bottom-0 left-full z-50 ml-[24px]"
+      style={{ width: 200, pointerEvents: open ? "auto" : "none" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -37,7 +38,7 @@ export function PostbuddyHoverCard({
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           className="h-full w-full object-cover object-top"
         />
       </div>
@@ -46,7 +47,7 @@ export function PostbuddyHoverCard({
           Carrying alone
         </h3>
         <p className="mt-[1px] text-[11px] leading-snug text-[rgba(17,17,17,0.5)]">
-          <a href={href} className="hover:text-[#111]">
+          <a href={href} className="no-underline hover:text-[#111]">
             Read my reflections
           </a>
           .
