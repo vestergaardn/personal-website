@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AnimatePresence } from "motion/react";
 import { PostbuddyHoverCard } from "./PostbuddyHoverCard";
 
 export function PostbuddyTimelineRow({
@@ -63,15 +62,12 @@ export function PostbuddyTimelineRow({
           {type}
         </span>
       </a>
-      <AnimatePresence>
-        {open && (
-          <PostbuddyHoverCard
-            href={href}
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
-          />
-        )}
-      </AnimatePresence>
+      <PostbuddyHoverCard
+        href={href}
+        open={open}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      />
     </div>
   );
 }
