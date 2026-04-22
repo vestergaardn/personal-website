@@ -15,13 +15,17 @@ export function PostbuddyHoverCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -4 }}
-      animate={open ? { opacity: 1, x: 0 } : { opacity: 0, x: -4 }}
+      initial={{ opacity: 0, x: -4, scale: 0.96 }}
+      animate={open ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -4, scale: 0.96 }}
       transition={{ duration: open ? 0.2 : 0.15, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className="absolute top-0 bottom-0 left-full z-50 ml-[24px]"
-      style={{ width: 200, pointerEvents: open ? "auto" : "none" }}
+      style={{
+        width: 200,
+        pointerEvents: open ? "auto" : "none",
+        transformOrigin: "left center",
+      }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

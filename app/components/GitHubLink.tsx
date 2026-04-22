@@ -41,6 +41,8 @@ export function GitHubLink({
       className="relative"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
     >
       <a
         href={`https://github.com/${username}`}

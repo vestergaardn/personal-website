@@ -35,7 +35,12 @@ export function PostbuddyTimelineRow({
   };
 
   return (
-    <div onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+    <div
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
+    >
       <a
         href={href}
         className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"

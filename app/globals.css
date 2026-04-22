@@ -31,12 +31,25 @@ body {
     text-decoration: none;
   }
 
-  a:hover {
-    color: #000000;
+  @media (hover: hover) {
+    a:hover {
+      color: #000000;
+    }
   }
 
   :root[data-theme="dark"] a {
     color: #696969;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
