@@ -62,7 +62,12 @@ export default async function Home() {
         </p>
         <p className="mb-0">
           Reach me at{" "}
-          <a href="mailto:hello@vestergaardn.com">hello@vestergaardn.com</a>{" "}
+          <a
+            href="mailto:hello@vestergaardn.com"
+            className="text-[#0000EE] hover:text-[#0000EE]"
+          >
+            hello@vestergaardn.com
+          </a>{" "}
           or see more of my work on{" "}
           <GitHubLink
             username={GITHUB_USERNAME}
