@@ -27,7 +27,13 @@ body {
 
 a {
   color: #575757;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: #e7e7e7;
+}
+
+:root[data-theme="dark"] a {
+  color: #b1b1b1;
+  text-decoration-color: #2b2b2b;
 }
 
 /* ========================================
