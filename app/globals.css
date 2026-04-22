@@ -25,15 +25,17 @@ body {
   font-family: var(--font-inter), Inter, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
 }
 
-a {
-  color: #575757;
-  text-decoration: underline;
-  text-decoration-color: #e7e7e7;
-}
+@layer base {
+  a {
+    color: #575757;
+    text-decoration: underline;
+    text-decoration-color: #e7e7e7;
+  }
 
-:root[data-theme="dark"] a {
-  color: #b1b1b1;
-  text-decoration-color: #2b2b2b;
+  :root[data-theme="dark"] a {
+    color: #b1b1b1;
+    text-decoration-color: #2b2b2b;
+  }
 }
 
 /* ========================================
