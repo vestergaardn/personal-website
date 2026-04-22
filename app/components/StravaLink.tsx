@@ -42,7 +42,12 @@ export function StravaLink({
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      <a href={href} target="_blank" rel="noopener noreferrer">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#0000EE] hover:text-[#0000EE]"
+      >
         {children}
       </a>
       <AnimatePresence>
