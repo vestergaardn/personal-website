@@ -18,7 +18,7 @@ export function GitHubHoverCard({
   const daysMissed = contributions.filter((d) => d.level === 0).length;
   const statusLine = `${daysMissed} ${
     daysMissed === 1 ? "day" : "days"
-  } missed. Level up.`;
+  } missed building`;
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
