@@ -29,7 +29,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mx-auto max-w-[600px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#000000] dark:text-[#ffffff]">
+    <div className="mx-auto max-w-[720px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#000000] dark:text-[#ffffff]">
       <header className="mb-4 flex items-start justify-between">
         <div>
           <h1 className="font-medium">Christian Vestergaard</h1>
@@ -40,20 +40,20 @@ export default async function Home() {
         <ThemeToggle />
       </header>
 
-      <section className="flex flex-col gap-5 border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
+      <section className="flex flex-col gap-5 border-b border-[rgba(17,17,17,0.08)] pb-7 text-[#5c5c5c] dark:border-[rgba(255,255,255,0.08)] dark:text-[#b5b5b5]">
         <p className="mb-0">
           I’m a designer and engineer. I’m drawn to the details that most
           people never notice, but always feel.
         </p>
         <p className="mb-0">
           I currently work on a new company with a friend, and co-founder.
-          Before that, I founded Postbuddy, who recently got acquired.
+          Before that, I founded Postbuddy.
         </p>
         <p className="mb-0">
           Off the clock, I race my bike and take on endurance challenges.
         </p>
         <p className="mb-0">
-          You can reach out to me on{" "}
+          Reach me at{" "}
           <a href="mailto:hello@vestergaardn.com">hello@vestergaardn.com</a>{" "}
           or see more of my work on{" "}
           <GitHubLink

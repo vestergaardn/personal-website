@@ -46,12 +46,12 @@ export function GitHubHoverCard({
               href="https://github.com/vestergaardn"
               target="_blank"
               rel="noopener noreferrer"
-              className="no-underline hover:no-underline"
+              className="text-inherit no-underline hover:text-inherit hover:no-underline"
             >
               {profile.login}
             </a>
           </p>
-          <p className="mt-0.5 text-sm leading-snug text-gray-600">
+          <p className="mt-0.5 text-sm leading-snug text-[#5c5c5c]">
             {statusLine}
           </p>
         </div>
