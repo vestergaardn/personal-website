@@ -1,10 +1,13 @@
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
 import { PostbuddyTimelineRow } from "./components/PostbuddyTimelineRow";
+import { StravaLink } from "./components/StravaLink";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { getGitHubContributions, getGitHubProfile } from "./lib/github";
+import { getStravaSummary } from "./lib/strava";
 
 const GITHUB_USERNAME = "vestergaardn";
+const STRAVA_PROFILE_URL = "https://www.strava.com/athletes/51203029";
 
 type TimelineEntry = {
   year: string;
@@ -23,9 +26,10 @@ const timeline: TimelineEntry[] = [
 ];
 
 export default async function Home() {
-  const [profile, contributions] = await Promise.all([
+  const [profile, contributions, stravaSummary] = await Promise.all([
     getGitHubProfile(GITHUB_USERNAME),
     getGitHubContributions(GITHUB_USERNAME, new Date().getFullYear()),
+    getStravaSummary(),
   ]);
 
   return (
@@ -50,7 +54,11 @@ export default async function Home() {
           Before that, I founded Postbuddy.
         </p>
         <p className="mb-0">
-          Off the clock, I race my bike and take on endurance challenges.
+          Off the clock, I{" "}
+          <StravaLink href={STRAVA_PROFILE_URL} summary={stravaSummary}>
+            race my bike
+          </StravaLink>{" "}
+          and take on endurance challenges.
         </p>
         <p className="mb-0">
           Reach me at{" "}
