@@ -21,11 +21,11 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mx-auto max-w-[600px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#111] dark:text-[#ededed]">
+    <div className="mx-auto max-w-[600px] px-4 pt-20 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#000000] dark:text-[#ffffff]">
       <header className="mb-4 flex items-start justify-between">
         <div>
           <h1 className="font-medium">Christian Vestergaard</h1>
-          <div className="text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+          <div className="text-[#9d9d9d] dark:text-[#696969]">
             <CopenhagenTime />
           </div>
         </div>
@@ -35,20 +35,9 @@ export default async function Home() {
       <section className="border-b border-[rgba(17,17,17,0.08)] pb-7 dark:border-[rgba(255,255,255,0.08)]">
         <p className="mb-0">
           Reach me at{" "}
-          <a
-            href="https://x.com/CVestergaard_"
-            className="text-[#575757]"
-          >
-            @CVestergaard_
-          </a>
-          ,{" "}
-          <a
-            href="mailto:hello@vestergaardn.com"
-            className="text-[#575757]"
-          >
-            hello@vestergaardn.com
-          </a>
-          , or on{" "}
+          <a href="https://x.com/CVestergaard_">@CVestergaard_</a>,{" "}
+          <a href="mailto:hello@vestergaardn.com">hello@vestergaardn.com</a>, or
+          on{" "}
           <GitHubLink
             username={GITHUB_USERNAME}
             profile={profile}
@@ -59,7 +48,7 @@ export default async function Home() {
       </section>
 
       <section className="border-b border-[rgba(17,17,17,0.08)] py-7 dark:border-[rgba(255,255,255,0.08)]">
-        <div className="flex items-center gap-0 px-2 py-1.5 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+        <div className="flex items-center gap-0 px-2 py-1.5 text-[#9d9d9d] dark:text-[#696969]">
           <span className="w-[37px] shrink-0">Year</span>
           <span className="w-5 shrink-0" aria-hidden />
           <span className="flex-1">Project</span>
@@ -69,9 +58,9 @@ export default async function Home() {
           <a
             key={`${entry.year}-${entry.project}`}
             href="#"
-            className="flex items-center gap-0 px-2 py-1.5 hover:bg-[rgba(17,17,17,0.03)] dark:hover:bg-[rgba(255,255,255,0.04)]"
+            className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
           >
-            <span className="w-[37px] shrink-0 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+            <span className="w-[37px] shrink-0 text-[#9d9d9d] dark:text-[#696969]">
               {entry.year}
             </span>
             <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
@@ -86,7 +75,7 @@ export default async function Home() {
               </svg>
             </span>
             <span className="flex-1">{entry.project}</span>
-            <span className="shrink-0 text-[rgba(17,17,17,0.4)] dark:text-[rgba(255,255,255,0.4)]">
+            <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
               {entry.type}
             </span>
           </a>
