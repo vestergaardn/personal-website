@@ -46,7 +46,7 @@ export function GitHubLink({
         href={`https://github.com/${username}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline underline-offset-2"
+        className="text-[#575757]"
       >
         GitHub
       </a>

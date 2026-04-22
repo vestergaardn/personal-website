@@ -37,14 +37,14 @@ export default async function Home() {
           Reach me at{" "}
           <a
             href="https://x.com/CVestergaard_"
-            className="underline underline-offset-2"
+            className="text-[#575757]"
           >
             @CVestergaard_
           </a>
           ,{" "}
           <a
             href="mailto:chris.vestergaardn@gmail.com"
-            className="underline underline-offset-2"
+            className="text-[#575757]"
           >
             chris.vestergaardn@gmail.com
           </a>

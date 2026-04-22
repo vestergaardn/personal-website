@@ -25,6 +25,11 @@ body {
   font-family: var(--font-inter), Inter, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
 }
 
+a {
+  color: #575757;
+  text-decoration: none;
+}
+
 /* ========================================
    Book Layout & Scene
    ======================================== */
