@@ -6,6 +6,7 @@ import type { ContributionDay } from "../lib/github";
 const SQUARE = 11;
 const GAP = 3;
 const ROWS = 7;
+const COLUMNS = 17;
 
 const LEVEL_COLORS: Record<0 | 1 | 2 | 3 | 4, string> = {
   0: "#ebedf0",
@@ -39,16 +40,20 @@ function buildGrid(days: ContributionDay[]): {
     date: d.date,
     level: d.level,
   }));
-  const cells: GridCell[] = [
+  let cells: GridCell[] = [
     ...Array<GridCell>(startDayOffset).fill({ kind: "past-missing" }),
     ...dataCells,
   ];
-  const totalCols = Math.ceil(cells.length / ROWS);
-  const totalCells = totalCols * ROWS;
-  while (cells.length < totalCells) cells.push({ kind: "future" });
+  const targetCells = COLUMNS * ROWS;
+  if (cells.length > targetCells) {
+    const weeksToDrop = Math.ceil((cells.length - targetCells) / ROWS);
+    cells = cells.slice(weeksToDrop * ROWS);
+  }
+  while (cells.length < targetCells) cells.push({ kind: "future" });
+  cells = cells.slice(0, targetCells);
 
   const columns: GridCell[][] = [];
-  for (let col = 0; col < totalCols; col++) {
+  for (let col = 0; col < COLUMNS; col++) {
     const column: GridCell[] = [];
     for (let row = 0; row < ROWS; row++) {
       column.push(cells[col * ROWS + row]);
@@ -58,8 +63,9 @@ function buildGrid(days: ContributionDay[]): {
 
   const monthLabels: string[] = [];
   const seenMonths = new Set<number>();
-  for (const day of days) {
-    const month = new Date(`${day.date}T00:00:00Z`).getUTCMonth();
+  for (const cell of cells) {
+    if (cell.kind !== "data") continue;
+    const month = new Date(`${cell.date}T00:00:00Z`).getUTCMonth();
     if (!seenMonths.has(month)) {
       seenMonths.add(month);
       monthLabels.push(MONTH_NAMES[month]);
