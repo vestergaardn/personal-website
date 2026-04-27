@@ -34,7 +34,7 @@ const timeline: TimelineEntry[] = [
     type: "Weekend hack",
     href: "https://tweaky.vercel.app/",
   },
-  { year: "2022", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
+  { year: "2024", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
 ];
 
 export default async function Home() {
