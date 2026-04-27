@@ -173,10 +173,12 @@ function startOfWeekMonday(d: Date): Date {
 
 function computeStreak(activeDays: Set<string>, today: Date) {
   // Walk back week-by-week (Mon-Sun) starting from current week.
-  // The current week counts even if incomplete (matches Strava app).
+  // The current week counts when it has activities, but an empty current
+  // week doesn't break the streak since the week isn't over yet.
   const weekStart = startOfWeekMonday(today);
   let weeks = 0;
   let activitiesInStreak = 0;
+  let isCurrentWeek = true;
   while (true) {
     let count = 0;
     for (let i = 0; i < 7; i++) {
@@ -185,9 +187,12 @@ function computeStreak(activeDays: Set<string>, today: Date) {
       if (d > today) break;
       if (activeDays.has(isoLocal(d))) count += 1;
     }
-    if (count === 0) break;
-    weeks += 1;
-    activitiesInStreak += count;
+    if (count === 0 && !isCurrentWeek) break;
+    if (count > 0) {
+      weeks += 1;
+      activitiesInStreak += count;
+    }
+    isCurrentWeek = false;
     weekStart.setDate(weekStart.getDate() - 7);
     if (weeks > 520) break; // 10y safety cap
   }
