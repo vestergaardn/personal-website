@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Suspense } from "react";
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
@@ -39,10 +40,20 @@ export default async function Home() {
   return (
     <div className="mx-auto max-w-[720px] px-4 pt-32 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#000000] dark:text-[#ffffff]">
       <header className="mb-4 flex items-start justify-between">
-        <div>
-          <h1 className="font-medium">Christian Vestergaard</h1>
-          <div className="text-[#9d9d9d] dark:text-[#696969]">
-            <CopenhagenTime />
+        <div className="flex items-center gap-3">
+          <Image
+            src="/cv-favicon.png"
+            alt=""
+            width={40}
+            height={40}
+            priority
+            className="shrink-0"
+          />
+          <div>
+            <h1 className="font-medium">Christian Vestergaard</h1>
+            <div className="text-[#9d9d9d] dark:text-[#696969]">
+              <CopenhagenTime />
+            </div>
           </div>
         </div>
         <ThemeToggle />
