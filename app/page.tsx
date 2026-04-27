@@ -28,6 +28,12 @@ const timeline: TimelineEntry[] = [
     type: "Free lab for builders",
     href: "https://www.ninethreequarters.com/",
   },
+  {
+    year: "2026",
+    project: "Tweaky",
+    type: "Weekend hack",
+    href: "https://tweaky.vercel.app/",
+  },
   { year: "2024", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
 ];
 
