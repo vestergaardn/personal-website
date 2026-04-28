@@ -13,6 +13,23 @@ export type ContributionDay = {
 
 const FALLBACK_BIO = "Designer and Engineer";
 
+const GRID_COLUMNS = 17;
+const GRID_ROWS = 7;
+
+export function getVisibleContributions(
+  contributions: ContributionDay[]
+): ContributionDay[] {
+  if (contributions.length === 0) return [];
+  const firstDate = new Date(`${contributions[0].date}T00:00:00Z`);
+  const startDayOffset = firstDate.getUTCDay();
+  const totalCells = startDayOffset + contributions.length;
+  const targetCells = GRID_COLUMNS * GRID_ROWS;
+  if (totalCells <= targetCells) return contributions;
+  const weeksToDrop = Math.ceil((totalCells - targetCells) / GRID_ROWS);
+  const dropped = Math.max(0, weeksToDrop * GRID_ROWS - startDayOffset);
+  return contributions.slice(dropped);
+}
+
 export async function getGitHubProfile(
   username: string
 ): Promise<GitHubProfile | null> {

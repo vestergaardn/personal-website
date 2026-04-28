@@ -2,7 +2,11 @@
 
 import { motion } from "motion/react";
 import { ContributionGraph } from "./ContributionGraph";
-import type { ContributionDay, GitHubProfile } from "../lib/github";
+import {
+  getVisibleContributions,
+  type ContributionDay,
+  type GitHubProfile,
+} from "../lib/github";
 
 export function GitHubHoverCard({
   profile,
@@ -15,7 +19,9 @@ export function GitHubHoverCard({
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
-  const daysMissed = contributions.filter((d) => d.level === 0).length;
+  const daysMissed = getVisibleContributions(contributions).filter(
+    (d) => d.level === 0
+  ).length;
   const statusLine = `${daysMissed} ${
     daysMissed === 1 ? "day" : "days"
   } missed building.`;
