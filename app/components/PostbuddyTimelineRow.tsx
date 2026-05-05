@@ -43,9 +43,9 @@ export function PostbuddyTimelineRow({
     >
       <a
         href={href}
-        className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
+        className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#ffffff] hover:bg-[var(--row-hover)]"
       >
-        <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#9d9d9d] dark:text-[#696969]">
+        <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#ffffff]">
           {year}
         </span>
         <span
@@ -55,15 +55,14 @@ export function PostbuddyTimelineRow({
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path
               d="M12.4995 5.66968L7.49951 14.3299"
-              stroke="rgba(17,17,17,0.3)"
+              stroke="var(--slash-muted)"
               strokeWidth="1.3"
               strokeLinecap="round"
-              className="dark:stroke-[rgba(255,255,255,0.3)]"
             />
           </svg>
         </span>
         <span className="flex-1">{project}</span>
-        <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
+        <span className="shrink-0 text-[#ffffff]">
           {type}
         </span>
       </a>

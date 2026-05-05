@@ -7,7 +7,6 @@ import {
   StravaRaceLink,
   StravaRaceLinkFallback,
 } from "./components/StravaRaceLink";
-import { ThemeToggle } from "./components/ThemeToggle";
 import { getGitHubContributions, getGitHubProfile } from "./lib/github";
 
 export const revalidate = 3600;
@@ -44,7 +43,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mx-auto max-w-[720px] px-4 pt-32 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#000000] dark:text-[#ffffff]">
+    <div className="mx-auto max-w-[720px] px-4 pt-32 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#ffffff]">
       <header className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-3">
           <Image
@@ -57,15 +56,14 @@ export default async function Home() {
           />
           <div>
             <h1 className="font-medium">Christian Vestergaard</h1>
-            <div className="text-[#9d9d9d] dark:text-[#696969]">
+            <div className="text-[#ffffff]">
               <CopenhagenTime />
             </div>
           </div>
         </div>
-        <ThemeToggle />
       </header>
 
-      <section className="flex flex-col gap-5 border-b border-[rgba(17,17,17,0.08)] pb-7 text-[#5c5c5c] dark:border-[rgba(255,255,255,0.08)] dark:text-[#b5b5b5]">
+      <section className="flex flex-col gap-5 border-b border-[color:var(--divider)] pb-7 text-[#ffffff]">
         <p className="mb-0">
           I’m a designer and engineer. I’m drawn to the details that most
           people never notice, but always feel.
@@ -85,7 +83,7 @@ export default async function Home() {
           Reach me at{" "}
           <a
             href="mailto:hello@vestergaardn.com"
-            className="text-[#000000] hover:text-[#000000] dark:text-[#ffffff] dark:hover:text-[#ffffff]"
+            className="text-[#ffffff] hover:text-[#ffffff]"
           >
             hello@vestergaardn.com
           </a>{" "}
@@ -99,9 +97,9 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="border-b border-[rgba(17,17,17,0.08)] py-7 dark:border-[rgba(255,255,255,0.08)]">
+      <section className="border-b border-[color:var(--divider)] py-7">
         <div className="relative">
-          <div className="flex items-center gap-0 px-2 py-1.5 text-[#9d9d9d] dark:text-[#696969]">
+          <div className="flex items-center gap-0 px-2 py-1.5 text-[#ffffff]">
             <span className="w-[37px] shrink-0">Year</span>
             <span className="w-5 shrink-0" aria-hidden />
             <span className="flex-1">Project</span>
@@ -126,24 +124,23 @@ export default async function Home() {
                 href={entry.href ?? "#"}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noreferrer" : undefined}
-                className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#000000] hover:bg-[rgba(17,17,17,0.03)] dark:text-[#ffffff] dark:hover:bg-[rgba(255,255,255,0.04)]"
+                className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#ffffff] hover:bg-[var(--row-hover)]"
               >
-                <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#9d9d9d] dark:text-[#696969]">
+                <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#ffffff]">
                   {entry.year}
                 </span>
                 <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path
                       d="M12.4995 5.66968L7.49951 14.3299"
-                      stroke="rgba(17,17,17,0.3)"
+                      stroke="var(--slash-muted)"
                       strokeWidth="1.3"
                       strokeLinecap="round"
-                      className="dark:stroke-[rgba(255,255,255,0.3)]"
                     />
                   </svg>
                 </span>
                 <span className="flex-1">{entry.project}</span>
-                <span className="shrink-0 text-[#9d9d9d] dark:text-[#696969]">
+                <span className="shrink-0 text-[#ffffff]">
                   {entry.type}
                 </span>
               </a>

@@ -105,7 +105,7 @@ function DayCell({ cell }: { cell: StravaDay }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View ${first.sport} activity on Strava`}
-          className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white transition-transform hover:scale-110"
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-[#ffffff] transition-transform hover:scale-110"
         >
           <SportIcon sport={first.sport} />
         </a>
@@ -118,8 +118,8 @@ function DayCell({ cell }: { cell: StravaDay }) {
       <div
         className={`flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-medium ${
           cell.isToday
-            ? "bg-gray-100 text-gray-400 ring-1 ring-gray-300"
-            : "text-gray-400 ring-1 ring-gray-200"
+            ? "bg-gray-100 text-[#ffffff] ring-1 ring-gray-300"
+            : "text-[#ffffff] ring-1 ring-gray-200"
         }`}
       >
         -
@@ -131,25 +131,25 @@ function DayCell({ cell }: { cell: StravaDay }) {
 export function StravaCalendar({ summary }: { summary: StravaSummary }) {
   return (
     <div>
-      <div className="mb-3 flex items-center gap-4 text-gray-900">
+      <div className="mb-3 flex items-center gap-4 text-[#ffffff]">
         {summary.avatarUrl && summary.isPremium && (
           <StravaShield src={summary.avatarUrl} />
         )}
         <div>
-          <div className="text-[12px] text-gray-500">Streak</div>
+          <div className="text-[12px] text-[#ffffff]">Streak</div>
           <div className="text-[14px] font-semibold">
             {summary.streakWeeks} {summary.streakWeeks === 1 ? "week" : "weeks"}
           </div>
         </div>
         <div>
-          <div className="text-[12px] text-gray-500">Activities</div>
+          <div className="text-[12px] text-[#ffffff]">Activities</div>
           <div className="text-[14px] font-semibold">
             {summary.totalActivities} total
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 mb-1 text-[11px] font-medium text-gray-400">
+      <div className="grid grid-cols-7 mb-1 text-[11px] font-medium text-[#ffffff]">
         {DOW.map((label, i) => (
           <div key={i} className="flex justify-center">
             {label}
