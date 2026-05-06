@@ -1,64 +1,36 @@
 "use client";
 
 import NumberFlow from "@number-flow/react";
-import { useSyncExternalStore } from "react";
+import { TextMorph } from "torph/react";
+import { useEffect, useState } from "react";
+import {
+  getTimePartsInTimeZone,
+  shuffleSelectedCity,
+  useSelectedCity,
+} from "../lib/city";
 
 type Time = { hour: number; minute: number; dayPeriod: string };
 
-function getCopenhagenParts(): Time {
-  const fmt = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Europe/Copenhagen",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-  const parts = fmt.formatToParts(new Date());
-  const hour = Number(parts.find((p) => p.type === "hour")?.value ?? "0");
-  const minute = Number(parts.find((p) => p.type === "minute")?.value ?? "0");
-  const dayPeriod = (parts.find((p) => p.type === "dayPeriod")?.value ?? "am").toLowerCase();
-  return { hour, minute, dayPeriod };
-}
-
-let snapshot: Time | null = null;
-const listeners = new Set<() => void>();
-let intervalId: ReturnType<typeof setInterval> | null = null;
-
-function tick() {
-  const next = getCopenhagenParts();
-  if (
-    !snapshot ||
-    snapshot.hour !== next.hour ||
-    snapshot.minute !== next.minute ||
-    snapshot.dayPeriod !== next.dayPeriod
-  ) {
-    snapshot = next;
-    listeners.forEach((l) => l());
-  }
-}
-
-function subscribe(callback: () => void) {
-  if (listeners.size === 0) {
-    snapshot = getCopenhagenParts();
-    intervalId = setInterval(tick, 1000);
-  }
-  listeners.add(callback);
-  queueMicrotask(callback);
-  return () => {
-    listeners.delete(callback);
-    if (listeners.size === 0 && intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-  };
-}
-
-const getSnapshot = () => snapshot;
-const getServerSnapshot = (): Time | null => null;
-
 export function CopenhagenTime() {
-  const time = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const city = useSelectedCity();
+  const [time, setTime] = useState<Time | null>(null);
 
-  if (!time) {
+  useEffect(() => {
+    if (!city) return;
+
+    const updateTime = () => {
+      setTime(getTimePartsInTimeZone(city.timeZone));
+    };
+
+    updateTime();
+    const intervalId = setInterval(updateTime, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [city]);
+
+  if (!time || !city) {
     return <span className="tabular-nums">&nbsp;</span>;
   }
 
@@ -67,7 +39,49 @@ export function CopenhagenTime() {
       <NumberFlow value={time.hour} />
       :
       <NumberFlow value={time.minute} format={{ minimumIntegerDigits: 2 }} />
-      {time.dayPeriod}&nbsp;in Copenhagen
+      {time.dayPeriod}&nbsp;in{" "}
+      <span className="city-shuffle-group">
+        <TextMorph
+          as="span"
+          className="city-name-morph"
+          duration={260}
+          ease="cubic-bezier(0.23, 1, 0.32, 1)"
+          locale="en"
+        >
+          {city.name}
+        </TextMorph>
+        <button
+          type="button"
+          className="city-shuffle-button"
+          aria-label="Shuffle city"
+          onClick={shuffleSelectedCity}
+        >
+          <ShuffleIcon />
+        </button>
+      </span>
     </span>
+  );
+}
+
+function ShuffleIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-shuffle"
+    >
+      <polyline points="16 3 21 3 21 8" />
+      <line x1="4" y1="20" x2="21" y2="3" />
+      <polyline points="21 16 21 21 16 21" />
+      <line x1="15" y1="15" x2="21" y2="21" />
+      <line x1="4" y1="4" x2="9" y2="9" />
+    </svg>
   );
 }

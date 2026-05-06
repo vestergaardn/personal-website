@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@property --sky-1 { syntax: '<color>'; inherits: false; initial-value: #222222; }
-@property --sky-2 { syntax: '<color>'; inherits: false; initial-value: #222222; }
-@property --sky-3 { syntax: '<color>'; inherits: false; initial-value: #222222; }
-@property --sky-4 { syntax: '<color>'; inherits: false; initial-value: #222222; }
-@property --sky-5 { syntax: '<color>'; inherits: false; initial-value: #222222; }
-
 :root {
   --background: #222222;
   --foreground: #ffffff;
@@ -43,14 +37,64 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    var(--sky-1) 0%,
-    var(--sky-2) 40%,
-    var(--sky-3) 70%,
-    var(--sky-4) 85%,
-    var(--sky-5) 100%
-  );
+  background: linear-gradient(180deg, #222 0%, #1C425D 100%);
+}
+
+.city-shuffle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.city-name-morph {
+  display: inline-block;
+  line-height: inherit;
+}
+
+.city-shuffle-button {
+  appearance: none;
+  position: relative;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  opacity: 0;
+  filter: blur(2px);
+  line-height: 1;
+  transform: translateY(-1px) scale(0.92);
+  transform-origin: center;
+  transition-property: opacity, filter, transform;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.city-shuffle-button::before {
+  content: "";
+  position: absolute;
+  inset: -11px;
+}
+
+.city-shuffle-button:active {
+  transform: scale(0.96);
+}
+
+.city-shuffle-group:hover .city-shuffle-button,
+.city-shuffle-group:focus-within .city-shuffle-button {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.city-shuffle-group:hover .city-shuffle-button:active,
+.city-shuffle-group:focus-within .city-shuffle-button:active {
+  transform: translateY(0) scale(0.96);
 }
 
 @layer base {
@@ -67,6 +111,14 @@ body {
 
 }
 
+@media (hover: none), (pointer: coarse) {
+  .city-shuffle-button {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -76,4 +128,9 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .city-shuffle-button {
+    transition-duration: 0.01ms !important;
+  }
+
 }

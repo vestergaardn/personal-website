@@ -1,253 +1,172 @@
 "use client";
 
+import { formatHex, interpolate } from "culori";
 import { useEffect, useRef, useState } from "react";
+import {
+  CITIES,
+  CITY_CHANGE_EVENT,
+  getMinuteOfDayInTimeZone,
+  getSelectedCity,
+  type City,
+  type CityId,
+} from "../lib/city";
+import {
+  buildSkyGradient,
+  getSkyBandAtMinute,
+  getSkySamples,
+  type SkySample,
+} from "../lib/sky";
 
-const DAY_MINUTES = 24 * 60;
+type SkyBand = ReturnType<typeof getSkyBandAtMinute>;
 
-const SKY_COLOR_PROPERTIES = [
-  "--sky-1",
-  "--sky-2",
-  "--sky-3",
-  "--sky-4",
-  "--sky-5",
-] as const;
+const SKY_TRANSITION_MS = 8000;
+const INITIAL_SAMPLES = getSkySamples(getSkyBandAtMinute(0));
+const INITIAL_GRADIENT = buildSkyGradient(INITIAL_SAMPLES);
 
-const SKY_KEYFRAMES = [
-  {
-    time: 0,
-    colors: {
-      "--sky-1": "#222222",
-      "--sky-2": "#222222",
-      "--sky-3": "#222222",
-      "--sky-4": "#222222",
-      "--sky-5": "#222222",
-    },
-  },
-  {
-    time: 270,
-    colors: {
-      "--sky-1": "#222222",
-      "--sky-2": "#222222",
-      "--sky-3": "#222222",
-      "--sky-4": "#222222",
-      "--sky-5": "#222222",
-    },
-  },
-  {
-    time: 330,
-    colors: {
-      "--sky-1": "#011D2D",
-      "--sky-2": "#062335",
-      "--sky-3": "#15364C",
-      "--sky-4": "#1D3F58",
-      "--sky-5": "#21445E",
-    },
-  },
-  {
-    time: 390,
-    colors: {
-      "--sky-1": "#50708B",
-      "--sky-2": "#778699",
-      "--sky-3": "#D19C45",
-      "--sky-4": "#FFA71B",
-      "--sky-5": "#FF7816",
-    },
-  },
-  {
-    time: 480,
-    colors: {
-      "--sky-1": "#50708B",
-      "--sky-2": "#778699",
-      "--sky-3": "#B39379",
-      "--sky-4": "#D29A69",
-      "--sky-5": "#D29A69",
-    },
-  },
-  {
-    time: 600,
-    colors: {
-      "--sky-1": "#476C98",
-      "--sky-2": "#4D77A4",
-      "--sky-3": "#568BB8",
-      "--sky-4": "#5A92BF",
-      "--sky-5": "#5A92BF",
-    },
-  },
-  {
-    time: 720,
-    colors: {
-      "--sky-1": "#3772C7",
-      "--sky-2": "#3E87D8",
-      "--sky-3": "#4BAAF4",
-      "--sky-4": "#50B7FF",
-      "--sky-5": "#50B7FF",
-    },
-  },
-  {
-    time: 840,
-    colors: {
-      "--sky-1": "#476C98",
-      "--sky-2": "#4D77A4",
-      "--sky-3": "#568BB8",
-      "--sky-4": "#5A92BF",
-      "--sky-5": "#5A92BF",
-    },
-  },
-  {
-    time: 930,
-    colors: {
-      "--sky-1": "#50708B",
-      "--sky-2": "#778699",
-      "--sky-3": "#B39379",
-      "--sky-4": "#D29A69",
-      "--sky-5": "#D29A69",
-    },
-  },
-  {
-    time: 1020,
-    colors: {
-      "--sky-1": "#50708B",
-      "--sky-2": "#778699",
-      "--sky-3": "#B39379",
-      "--sky-4": "#D29A69",
-      "--sky-5": "#D29A69",
-    },
-  },
-  {
-    time: 1230,
-    colors: {
-      "--sky-1": "#50708B",
-      "--sky-2": "#778699",
-      "--sky-3": "#D19C45",
-      "--sky-4": "#FFA71B",
-      "--sky-5": "#FF7816",
-    },
-  },
-  {
-    time: 1320,
-    colors: {
-      "--sky-1": "#011D2D",
-      "--sky-2": "#062335",
-      "--sky-3": "#15364C",
-      "--sky-4": "#1D3F58",
-      "--sky-5": "#21445E",
-    },
-  },
-  {
-    time: 1410,
-    colors: {
-      "--sky-1": "#222222",
-      "--sky-2": "#222222",
-      "--sky-3": "#222222",
-      "--sky-4": "#222222",
-      "--sky-5": "#222222",
-    },
-  },
-] as const;
-
-function minutesSinceMidnight() {
-  const now = new Date();
-  return now.getHours() * 60 + now.getMinutes();
+function isCityId(value: unknown): value is CityId {
+  return typeof value === "string" && value in CITIES;
 }
 
-function formatMinute(minute: number) {
-  const normalized = ((minute % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
-  const hour = Math.floor(normalized / 60);
-  const mins = normalized % 60;
-  return `${String(hour).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+function easeInOut(progress: number) {
+  return 0.5 - Math.cos(progress * Math.PI) / 2;
 }
 
-function setSkyColorsAtMinute(el: HTMLElement, minute: number) {
-  const normalized = ((minute % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
-  const active = [...SKY_KEYFRAMES]
-    .reverse()
-    .find((keyframe) => keyframe.time <= normalized) ?? SKY_KEYFRAMES[0];
-
-  SKY_COLOR_PROPERTIES.forEach((property) => {
-    el.style.setProperty(property, active.colors[property]);
+function interpolateSamples(
+  fromSamples: readonly SkySample[],
+  toSamples: readonly SkySample[],
+  progress: number,
+) {
+  return fromSamples.map((fromSample, index) => {
+    const toSample = toSamples[index];
+    const mix = interpolate([fromSample.color, toSample.color], "rgb");
+    return {
+      position: fromSample.position,
+      color: formatHex(mix(progress)),
+    };
   });
 }
 
 export function SkyGradient() {
-  const skyRef = useRef<HTMLDivElement>(null);
-  const [previewMinute, setPreviewMinute] = useState(0);
-  const [isPreviewing, setIsPreviewing] = useState(false);
+  const [band, setBand] = useState<SkyBand | null>(null);
+  const [gradient, setGradient] = useState(INITIAL_GRADIENT);
+  const bandRef = useRef<SkyBand | null>(null);
+  const cityIdRef = useRef<string | null>(null);
+  const samplesRef = useRef<SkySample[]>(INITIAL_SAMPLES);
+  const animationRef = useRef<number | null>(null);
+  const reducedMotionRef = useRef(false);
 
   useEffect(() => {
-    if (isPreviewing) return;
-    const initialSync = setTimeout(() => {
-      setPreviewMinute(minutesSinceMidnight());
-    }, 0);
-    const interval = setInterval(() => {
-      setPreviewMinute(minutesSinceMidnight());
-    }, 60 * 1000);
-    return () => {
-      clearTimeout(initialSync);
-      clearInterval(interval);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotionRef.current = reducedMotion.matches;
+
+    const stopAnimation = () => {
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
     };
-  }, [isPreviewing]);
 
-  useEffect(() => {
-    const sky = skyRef.current;
-    if (!sky) return;
+    const setTargetSky = (nextBand: SkyBand, animate: boolean) => {
+      const targetSamples = getSkySamples(nextBand);
 
-    if (isPreviewing) {
-      setSkyColorsAtMinute(sky, previewMinute);
-      return;
-    }
+      if (!animate || reducedMotionRef.current) {
+        stopAnimation();
+        samplesRef.current = targetSamples;
+        setGradient(buildSkyGradient(targetSamples));
+        return;
+      }
 
-    const syncToCurrentBand = () => {
-      setSkyColorsAtMinute(sky, minutesSinceMidnight());
+      stopAnimation();
+      const fromSamples = samplesRef.current;
+      const startTime = performance.now();
+
+      const tick = (time: number) => {
+        const rawProgress = Math.min(
+          1,
+          (time - startTime) / SKY_TRANSITION_MS,
+        );
+        const currentSamples = interpolateSamples(
+          fromSamples,
+          targetSamples,
+          easeInOut(rawProgress),
+        );
+
+        samplesRef.current = currentSamples;
+        setGradient(buildSkyGradient(currentSamples));
+
+        if (rawProgress < 1) {
+          animationRef.current = requestAnimationFrame(tick);
+        } else {
+          samplesRef.current = targetSamples;
+          setGradient(buildSkyGradient(targetSamples));
+          animationRef.current = null;
+        }
+      };
+
+      animationRef.current = requestAnimationFrame(tick);
+    };
+
+    const syncSky = (targetCity: City) => {
+      const localMinute = getMinuteOfDayInTimeZone(targetCity.timeZone);
+      const nextBand = getSkyBandAtMinute(localMinute);
+      const previousBand = bandRef.current;
+      const previousCityId = cityIdRef.current;
+      const changedGradients =
+        previousBand &&
+        (previousBand.name !== nextBand.name ||
+          previousCityId !== targetCity.id);
+
+      if (changedGradients) {
+        setTargetSky(nextBand, true);
+      } else if (!previousBand) {
+        setTargetSky(nextBand, false);
+      }
+
+      bandRef.current = nextBand;
+      cityIdRef.current = targetCity.id;
+      setBand(nextBand);
     };
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        syncToCurrentBand();
+        syncSky(getSelectedCity());
       }
     };
 
-    syncToCurrentBand();
-    const updateInterval = setInterval(syncToCurrentBand, 60 * 1000);
+    const handleCityChange = (event: Event) => {
+      const cityId = (event as CustomEvent<unknown>).detail;
+      syncSky(isCityId(cityId) ? CITIES[cityId] : getSelectedCity());
+    };
+
+    const handleReducedMotionChange = () => {
+      reducedMotionRef.current = reducedMotion.matches;
+      if (reducedMotion.matches && bandRef.current) {
+        setTargetSky(bandRef.current, false);
+      }
+    };
+
+    syncSky(getSelectedCity());
+    const updateInterval = setInterval(() => syncSky(getSelectedCity()), 10 * 1000);
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener(CITY_CHANGE_EVENT, handleCityChange);
+    reducedMotion.addEventListener("change", handleReducedMotionChange);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener(CITY_CHANGE_EVENT, handleCityChange);
+      reducedMotion.removeEventListener("change", handleReducedMotionChange);
       clearInterval(updateInterval);
+      stopAnimation();
     };
-  }, [isPreviewing, previewMinute]);
+  }, []);
 
   return (
-    <>
-      <div ref={skyRef} className="sky-background" aria-hidden="true" />
-      <div className="fixed left-1/2 bottom-5 z-50 flex w-[min(520px,calc(100vw-32px))] -translate-x-1/2 items-center gap-3 rounded-md bg-[rgba(0,0,0,0.32)] px-3 py-2 text-[12px] text-[#ffffff] shadow-[0_12px_32px_rgba(0,0,0,0.22)] backdrop-blur-md">
-        <label htmlFor="sky-time-preview" className="shrink-0 font-medium">
-          {formatMinute(previewMinute)}
-        </label>
-        <input
-          id="sky-time-preview"
-          type="range"
-          min="0"
-          max={DAY_MINUTES - 1}
-          step="1"
-          value={previewMinute}
-          aria-label="Preview sky time"
-          className="h-6 min-w-0 flex-1 accent-white"
-          onChange={(event) => {
-            setIsPreviewing(true);
-            setPreviewMinute(Number(event.currentTarget.value));
-          }}
-        />
-        <button
-          type="button"
-          className="h-7 shrink-0 rounded px-2 text-[#ffffff] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.22)] active:scale-[0.96]"
-          onClick={() => {
-            setIsPreviewing(false);
-            setPreviewMinute(minutesSinceMidnight());
-          }}
-        >
-          Auto
-        </button>
-      </div>
-    </>
+    <div
+      className="sky-background"
+      data-sky={band?.name}
+      data-sky-range={band?.range}
+      aria-hidden="true"
+      style={{ background: gradient }}
+    />
   );
 }
