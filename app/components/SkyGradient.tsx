@@ -2,14 +2,8 @@
 
 import { formatHex, interpolate } from "culori";
 import { useEffect, useRef, useState } from "react";
-import {
-  CITIES,
-  CITY_CHANGE_EVENT,
-  getMinuteOfDayInTimeZone,
-  getSelectedCity,
-  type City,
-  type CityId,
-} from "../lib/city";
+import { useCity } from "./CityProvider";
+import { getMinuteOfDayInTimeZone, type City } from "../lib/city";
 import {
   buildSkyGradient,
   getSkyBandAtMinute,
@@ -22,10 +16,6 @@ type SkyBand = ReturnType<typeof getSkyBandAtMinute>;
 const SKY_TRANSITION_MS = 8000;
 const INITIAL_SAMPLES = getSkySamples(getSkyBandAtMinute(0));
 const INITIAL_GRADIENT = buildSkyGradient(INITIAL_SAMPLES);
-
-function isCityId(value: unknown): value is CityId {
-  return typeof value === "string" && value in CITIES;
-}
 
 function easeInOut(progress: number) {
   return 0.5 - Math.cos(progress * Math.PI) / 2;
@@ -47,6 +37,7 @@ function interpolateSamples(
 }
 
 export function SkyGradient() {
+  const { city } = useCity();
   const [band, setBand] = useState<SkyBand | null>(null);
   const [gradient, setGradient] = useState(INITIAL_GRADIENT);
   const bandRef = useRef<SkyBand | null>(null);
@@ -56,6 +47,8 @@ export function SkyGradient() {
   const reducedMotionRef = useRef(false);
 
   useEffect(() => {
+    if (!city) return;
+
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     reducedMotionRef.current = reducedMotion.matches;
 
@@ -129,13 +122,8 @@ export function SkyGradient() {
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        syncSky(getSelectedCity());
+        syncSky(city);
       }
-    };
-
-    const handleCityChange = (event: Event) => {
-      const cityId = (event as CustomEvent<unknown>).detail;
-      syncSky(isCityId(cityId) ? CITIES[cityId] : getSelectedCity());
     };
 
     const handleReducedMotionChange = () => {
@@ -145,20 +133,18 @@ export function SkyGradient() {
       }
     };
 
-    syncSky(getSelectedCity());
-    const updateInterval = setInterval(() => syncSky(getSelectedCity()), 10 * 1000);
+    syncSky(city);
+    const updateInterval = setInterval(() => syncSky(city), 10 * 1000);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener(CITY_CHANGE_EVENT, handleCityChange);
     reducedMotion.addEventListener("change", handleReducedMotionChange);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener(CITY_CHANGE_EVENT, handleCityChange);
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
       clearInterval(updateInterval);
       stopAnimation();
     };
-  }, []);
+  }, [city]);
 
   return (
     <div

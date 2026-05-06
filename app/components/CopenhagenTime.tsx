@@ -3,16 +3,13 @@
 import NumberFlow from "@number-flow/react";
 import { TextMorph } from "torph/react";
 import { useEffect, useState } from "react";
-import {
-  getTimePartsInTimeZone,
-  shuffleSelectedCity,
-  useSelectedCity,
-} from "../lib/city";
+import { useCity } from "./CityProvider";
+import { getTimePartsInTimeZone } from "../lib/city";
 
 type Time = { hour: number; minute: number; dayPeriod: string };
 
 export function CopenhagenTime() {
-  const city = useSelectedCity();
+  const { city, shuffleCity } = useCity();
   const [time, setTime] = useState<Time | null>(null);
 
   useEffect(() => {
@@ -44,7 +41,7 @@ export function CopenhagenTime() {
         type="button"
         className="city-shuffle-group"
         aria-label="Shuffle city"
-        onClick={shuffleSelectedCity}
+        onClick={shuffleCity}
       >
         <TextMorph
           as="span"
