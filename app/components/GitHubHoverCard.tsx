@@ -47,7 +47,7 @@ export function GitHubHoverCard({
           className="h-10 w-10 flex-shrink-0 rounded-full"
         />
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium leading-snug text-gray-900">
+          <p className="text-sm font-medium leading-snug text-[#ffffff]">
             <a
               href="https://github.com/vestergaardn"
               target="_blank"
@@ -57,7 +57,7 @@ export function GitHubHoverCard({
               {profile.login}
             </a>
           </p>
-          <p className="mt-0.5 text-sm leading-snug text-[#5c5c5c]">
+          <p className="mt-0.5 text-sm leading-snug text-[#ffffff]">
             {statusLine}
           </p>
         </div>

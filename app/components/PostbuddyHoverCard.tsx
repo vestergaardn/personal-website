@@ -47,12 +47,12 @@ export function PostbuddyHoverCard({
           className="h-full w-full object-cover object-top"
         />
       </div>
-      <div className="absolute top-[17px] left-[20px] right-[20px] text-[#111]">
+      <div className="absolute top-[17px] left-[20px] right-[20px] text-[#ffffff]">
         <h3 className="text-[14px] font-medium leading-tight">
           Carrying alone
         </h3>
-        <p className="mt-[1px] text-[11px] leading-snug text-[rgba(17,17,17,0.5)]">
-          <a href={href} className="no-underline hover:text-[#111]">
+        <p className="mt-[1px] text-[11px] leading-snug text-[#ffffff]">
+          <a href={href} className="no-underline hover:text-[#ffffff]">
             Read my reflections
           </a>
           .

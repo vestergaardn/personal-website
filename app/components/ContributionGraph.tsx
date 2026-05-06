@@ -86,7 +86,7 @@ export function ContributionGraph({
   return (
     <div>
       <div
-        className="mb-[6px] flex justify-between text-[11px] leading-none text-gray-400"
+        className="mb-[6px] flex justify-between text-[11px] leading-none text-[#ffffff]"
         style={{ width: gridWidth }}
       >
         {monthLabels.map((month) => (

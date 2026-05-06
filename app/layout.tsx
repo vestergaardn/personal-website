@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, EB_Garamond, Inter } from "next/font/google";
+import { CityProvider } from "./components/CityProvider";
+import { SkyGradient } from "./components/SkyGradient";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -40,7 +42,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <CityProvider>
+          <SkyGradient />
+          <div className="site-content">{children}</div>
+        </CityProvider>
       </body>
     </html>
   );
