@@ -50,7 +50,7 @@ export function GitHubLink({
         rel="noopener noreferrer"
         className="text-[#ffffff] hover:text-[#ffffff]"
       >
-        GitHub
+        my work on GitHub
       </a>
       <AnimatePresence>
         {open && canShowCard && (
