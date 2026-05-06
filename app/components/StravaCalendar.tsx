@@ -130,26 +130,26 @@ function DayCell({ cell }: { cell: StravaDay }) {
 
 export function StravaCalendar({ summary }: { summary: StravaSummary }) {
   return (
-    <div>
-      <div className="mb-3 flex items-center gap-4 text-[#ffffff]">
+    <div className="text-[#111827]">
+      <div className="mb-3 flex items-center gap-4">
         {summary.avatarUrl && summary.isPremium && (
           <StravaShield src={summary.avatarUrl} />
         )}
         <div>
-          <div className="text-[12px] text-[#ffffff]">Streak</div>
+          <div className="text-[12px] text-[#6b7280]">Streak</div>
           <div className="text-[14px] font-semibold">
             {summary.streakWeeks} {summary.streakWeeks === 1 ? "week" : "weeks"}
           </div>
         </div>
         <div>
-          <div className="text-[12px] text-[#ffffff]">Activities</div>
+          <div className="text-[12px] text-[#6b7280]">Activities</div>
           <div className="text-[14px] font-semibold">
             {summary.totalActivities} total
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 mb-1 text-[11px] font-medium text-[#ffffff]">
+      <div className="mb-1 grid grid-cols-7 text-[11px] font-medium text-[#9ca3af]">
         {DOW.map((label, i) => (
           <div key={i} className="flex justify-center">
             {label}
