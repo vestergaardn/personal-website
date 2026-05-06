@@ -13,12 +13,12 @@ import {
 
 type SkyBand = ReturnType<typeof getSkyBandAtMinute>;
 
-const SKY_TRANSITION_MS = 8000;
+const SKY_TRANSITION_MS = 4500;
 const INITIAL_SAMPLES = getSkySamples(getSkyBandAtMinute(0));
 const INITIAL_GRADIENT = buildSkyGradient(INITIAL_SAMPLES);
 
-function easeInOut(progress: number) {
-  return 0.5 - Math.cos(progress * Math.PI) / 2;
+function easeSkyMorph(progress: number) {
+  return 1 - (1 - progress) ** 2.2;
 }
 
 function interpolateSamples(
@@ -81,7 +81,7 @@ export function SkyGradient() {
         const currentSamples = interpolateSamples(
           fromSamples,
           targetSamples,
-          easeInOut(rawProgress),
+          easeSkyMorph(rawProgress),
         );
 
         samplesRef.current = currentSamples;
