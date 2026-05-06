@@ -92,7 +92,6 @@ export default async function Home() {
           </a>{" "}
           or see more of{" "}
           <span className="font-bold">
-            my work on{" "}
             <GitHubLink
               username={GITHUB_USERNAME}
               profile={profile}

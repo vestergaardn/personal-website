@@ -38,14 +38,6 @@ export function GitHubHoverCard({
     >
       <ContributionGraph contributions={contributions} />
       <div className="mt-4 flex items-start gap-3">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={profile.avatarUrl}
-          alt={profile.login}
-          width={40}
-          height={40}
-          className="h-10 w-10 flex-shrink-0 rounded-full"
-        />
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium leading-snug text-[#24292f]">
             <a
@@ -57,7 +49,7 @@ export function GitHubHoverCard({
               {profile.login}
             </a>
           </p>
-          <p className="mt-0.5 text-sm leading-snug text-[#57606a]">
+          <p className="mt-0.5 text-sm font-normal leading-snug text-[#57606a]">
             {statusLine}
           </p>
         </div>
