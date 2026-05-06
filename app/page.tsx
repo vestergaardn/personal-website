@@ -55,7 +55,7 @@ export default async function Home() {
             className="shrink-0"
           />
           <div>
-            <h1 className="font-medium">Christian Vestergaard</h1>
+            <h1 className="font-bold">Christian Vestergaard</h1>
             <div className="text-[#ffffff]">
               <CopenhagenTime />
             </div>
@@ -73,26 +73,32 @@ export default async function Home() {
           Before that, I founded Postbuddy.
         </p>
         <p className="mb-0">
-          Off the clock, I{" "}
-          <Suspense fallback={<StravaRaceLinkFallback />}>
-            <StravaRaceLink />
-          </Suspense>{" "}
+          Off the clock,{" "}
+          <span className="font-bold">
+            I{" "}
+            <Suspense fallback={<StravaRaceLinkFallback />}>
+              <StravaRaceLink />
+            </Suspense>
+          </span>{" "}
           and take on endurance challenges.
         </p>
         <p className="mb-0">
           Reach me at{" "}
           <a
             href="mailto:hello@vestergaardn.com"
-            className="text-[#ffffff] hover:text-[#ffffff]"
+            className="font-bold text-[#ffffff] hover:text-[#ffffff]"
           >
             hello@vestergaardn.com
           </a>{" "}
-          or see more of my work on{" "}
-          <GitHubLink
-            username={GITHUB_USERNAME}
-            profile={profile}
-            contributions={contributions}
-          />
+          or see more of{" "}
+          <span className="font-bold">
+            my work on{" "}
+            <GitHubLink
+              username={GITHUB_USERNAME}
+              profile={profile}
+              contributions={contributions}
+            />
+          </span>
           .
         </p>
       </section>
