@@ -118,8 +118,8 @@ function DayCell({ cell }: { cell: StravaDay }) {
       <div
         className={`flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-medium ${
           cell.isToday
-            ? "bg-gray-100 text-[#ffffff] ring-1 ring-gray-300"
-            : "text-[#ffffff] ring-1 ring-gray-200"
+            ? "bg-gray-100 text-[#9ca3af] ring-1 ring-gray-300"
+            : "text-[#9ca3af] ring-1 ring-gray-200"
         }`}
       >
         -
