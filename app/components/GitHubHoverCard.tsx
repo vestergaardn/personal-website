@@ -33,7 +33,7 @@ export function GitHubHoverCard({
       transition={{ duration: 0.2, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="absolute bottom-full left-1/2 z-50 mb-[10px] -translate-x-1/2 rounded-[14px] bg-white p-4 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.08),0_4px_12px_-2px_rgba(0,0,0,0.05)] pointer-events-auto text-left"
+      className="absolute bottom-full left-1/2 z-50 mb-[10px] -translate-x-1/2 rounded-[14px] bg-white p-4 text-left text-[#24292f] shadow-[0_10px_30px_-5px_rgba(0,0,0,0.08),0_4px_12px_-2px_rgba(0,0,0,0.05)] pointer-events-auto"
       style={{ width: 267, transformOrigin: "bottom center" }}
     >
       <ContributionGraph contributions={contributions} />
@@ -47,7 +47,7 @@ export function GitHubHoverCard({
           className="h-10 w-10 flex-shrink-0 rounded-full"
         />
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium leading-snug text-[#ffffff]">
+          <p className="text-sm font-medium leading-snug text-[#24292f]">
             <a
               href="https://github.com/vestergaardn"
               target="_blank"
@@ -57,7 +57,7 @@ export function GitHubHoverCard({
               {profile.login}
             </a>
           </p>
-          <p className="mt-0.5 text-sm leading-snug text-[#ffffff]">
+          <p className="mt-0.5 text-sm leading-snug text-[#57606a]">
             {statusLine}
           </p>
         </div>
