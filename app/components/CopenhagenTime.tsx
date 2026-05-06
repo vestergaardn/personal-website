@@ -40,7 +40,12 @@ export function CopenhagenTime() {
       :
       <NumberFlow value={time.minute} format={{ minimumIntegerDigits: 2 }} />
       {time.dayPeriod}&nbsp;in{" "}
-      <span className="city-shuffle-group">
+      <button
+        type="button"
+        className="city-shuffle-group"
+        aria-label="Shuffle city"
+        onClick={shuffleSelectedCity}
+      >
         <TextMorph
           as="span"
           className="city-name-morph"
@@ -50,15 +55,10 @@ export function CopenhagenTime() {
         >
           {city.name}
         </TextMorph>
-        <button
-          type="button"
-          className="city-shuffle-button"
-          aria-label="Shuffle city"
-          onClick={shuffleSelectedCity}
-        >
+        <span className="city-shuffle-button" aria-hidden="true">
           <ShuffleIcon />
-        </button>
-      </span>
+        </span>
+      </button>
     </span>
   );
 }

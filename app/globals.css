@@ -41,10 +41,23 @@ body {
 }
 
 .city-shuffle-group {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  font: inherit;
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  line-height: inherit;
   white-space: nowrap;
+}
+
+.city-shuffle-group:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
 }
 
 .city-name-morph {
@@ -53,18 +66,13 @@ body {
 }
 
 .city-shuffle-button {
-  appearance: none;
   position: relative;
   display: inline-flex;
   width: 18px;
   height: 18px;
   align-items: center;
   justify-content: center;
-  border: 0;
-  padding: 0;
-  background: transparent;
   color: currentColor;
-  cursor: pointer;
   opacity: 0;
   filter: blur(2px);
   line-height: 1;
@@ -75,25 +83,19 @@ body {
   transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.city-shuffle-button::before {
-  content: "";
-  position: absolute;
-  inset: -11px;
-}
-
-.city-shuffle-button:active {
+.city-shuffle-group:active .city-shuffle-button {
   transform: scale(0.96);
 }
 
 .city-shuffle-group:hover .city-shuffle-button,
-.city-shuffle-group:focus-within .city-shuffle-button {
+.city-shuffle-group:focus-visible .city-shuffle-button {
   opacity: 1;
   filter: blur(0);
   transform: translateY(0) scale(1);
 }
 
-.city-shuffle-group:hover .city-shuffle-button:active,
-.city-shuffle-group:focus-within .city-shuffle-button:active {
+.city-shuffle-group:hover:active .city-shuffle-button,
+.city-shuffle-group:focus-visible:active .city-shuffle-button {
   transform: translateY(0) scale(0.96);
 }
 
