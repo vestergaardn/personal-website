@@ -47,12 +47,14 @@ export default async function Home() {
       <header className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-3">
           <Image
-            src="/cv-favicon.png"
+            src="/cv-favicon-page.png"
             alt=""
-            width={40}
-            height={40}
+            width={384}
+            height={384}
             priority
-            className="shrink-0"
+            fetchPriority="high"
+            unoptimized
+            className="h-10 w-10 shrink-0"
           />
           <div>
             <h1 className="font-bold">Christian Vestergaard</h1>
