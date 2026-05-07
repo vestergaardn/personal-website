@@ -43,13 +43,13 @@ export function PostbuddyTimelineRow({
     >
       <a
         href={href}
-        className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#ffffff] hover:bg-[var(--row-hover)]"
+        className="timeline-row"
       >
-        <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#ffffff]">
+        <span className="timeline-year">
           {year}
         </span>
         <span
-          className="flex w-5 shrink-0 items-center justify-center"
+          className="timeline-slash"
           aria-hidden
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -61,8 +61,8 @@ export function PostbuddyTimelineRow({
             />
           </svg>
         </span>
-        <span className="flex-1">{project}</span>
-        <span className="shrink-0 text-[#ffffff]">
+        <span className="timeline-project">{project}</span>
+        <span className="timeline-type">
           {type}
         </span>
       </a>

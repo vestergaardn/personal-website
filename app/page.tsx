@@ -43,9 +43,9 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mx-auto max-w-[720px] px-4 pt-32 pb-10 font-[var(--font-inter)] text-[14px] leading-5 text-[#ffffff]">
-      <header className="mb-4 flex items-start justify-between">
-        <div className="flex items-center gap-3">
+    <div className="site-shell">
+      <header className="site-header">
+        <div className="profile-lockup">
           <Image
             src="/cv-favicon.png"
             alt=""
@@ -55,7 +55,7 @@ export default async function Home() {
             className="shrink-0"
           />
           <div>
-            <h1 className="font-bold">Christian Vestergaard</h1>
+            <h1 className="site-name">Christian Vestergaard</h1>
             <div className="text-[#ffffff]">
               <CopenhagenTime />
             </div>
@@ -63,7 +63,7 @@ export default async function Home() {
         </div>
       </header>
 
-      <section className="flex flex-col gap-5 border-b border-[color:var(--divider)] pb-7 text-[#ffffff]">
+      <section className="site-section bio-section">
         <p className="mb-0">
           I’m a designer and engineer. I’m drawn to the details that most
           people never notice, but always feel.
@@ -102,13 +102,13 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="border-b border-[color:var(--divider)] py-7">
+      <section className="site-section timeline-section">
         <div className="relative">
-          <div className="flex items-center gap-0 px-2 py-1.5 text-[#ffffff]">
-            <span className="w-[37px] shrink-0">Year</span>
-            <span className="w-5 shrink-0" aria-hidden />
-            <span className="flex-1">Project</span>
-            <span className="shrink-0">Type</span>
+          <div className="timeline-heading">
+            <span className="timeline-heading-year">Year</span>
+            <span className="timeline-slash" aria-hidden />
+            <span className="timeline-project">Project</span>
+            <span className="timeline-type">Type</span>
           </div>
           {timeline.map((entry) => {
             if (entry.project === "Postbuddy") {
@@ -129,12 +129,12 @@ export default async function Home() {
                 href={entry.href ?? "#"}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noreferrer" : undefined}
-                className="flex items-center gap-0 px-2 py-1.5 no-underline text-[#ffffff] hover:bg-[var(--row-hover)]"
+                className="timeline-row"
               >
-                <span className="w-[37px] shrink-0 font-[var(--font-geist-mono)] text-[#ffffff]">
+                <span className="timeline-year">
                   {entry.year}
                 </span>
-                <span className="flex w-5 shrink-0 items-center justify-center" aria-hidden>
+                <span className="timeline-slash" aria-hidden>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path
                       d="M12.4995 5.66968L7.49951 14.3299"
@@ -144,8 +144,8 @@ export default async function Home() {
                     />
                   </svg>
                 </span>
-                <span className="flex-1">{entry.project}</span>
-                <span className="shrink-0 text-[#ffffff]">
+                <span className="timeline-project">{entry.project}</span>
+                <span className="timeline-type">
                   {entry.type}
                 </span>
               </a>

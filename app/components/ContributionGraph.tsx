@@ -86,7 +86,7 @@ export function ContributionGraph({
   return (
     <div>
       <div
-        className="mb-[6px] flex justify-between text-[11px] leading-none text-[#57606a]"
+        className="hover-card-calendar-label mb-[6px] flex justify-between"
         style={{ width: gridWidth }}
       >
         {monthLabels.map((month) => (
