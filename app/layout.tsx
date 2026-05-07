@@ -30,6 +30,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Christian Vestergaard",
   description: "Christian Vestergaard's personal website",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "1000x1000" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({
