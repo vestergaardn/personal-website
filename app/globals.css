@@ -37,20 +37,38 @@
   --font-serif: var(--font-eb-garamond);
 }
 
+html {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  background: var(--background);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), Inter, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
 }
 
 .site-content {
   position: relative;
   z-index: 1;
   color: #ffffff;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .site-shell {
+  width: 100%;
   max-width: var(--site-measure);
   margin-inline: auto;
   padding: var(--site-padding-top) var(--site-padding-x) var(--site-padding-bottom);
@@ -98,6 +116,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0;
+  min-width: 0;
   padding: var(--timeline-row-padding-y) var(--timeline-row-padding-x);
   color: var(--text-primary);
 }
@@ -128,9 +147,11 @@ body {
 
 .timeline-project {
   flex: 1;
+  min-width: 0;
 }
 
 .timeline-type {
+  min-width: 0;
   flex-shrink: 0;
   color: var(--text-primary);
 }
