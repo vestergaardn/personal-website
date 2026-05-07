@@ -1,11 +1,7 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
 import { GitHubHoverCard } from "./GitHubHoverCard";
-import {
-  useFloatingHoverCard,
-  useHoverCardTrigger,
-} from "./useHoverCard";
+import { HoverPreview } from "./HoverPreview";
 import type { ContributionDay, GitHubProfile } from "../lib/github";
 
 export function GitHubLink({
@@ -18,56 +14,37 @@ export function GitHubLink({
   contributions: ContributionDay[] | null;
 }) {
   const canShowCard = profile !== null && contributions !== null;
-  const {
-    open,
-    triggerRef,
-    setTriggerRef,
-    cardRef,
-    handleEnter,
-    handleLeave,
-    handleBlur,
-    handlePointerDown,
-    handleTriggerClick,
-  } = useHoverCardTrigger({ enabled: canShowCard });
-  const floatingStyle = useFloatingHoverCard({
-    open: open && canShowCard,
-    triggerRef,
-    cardRef,
-    width: 267,
-    placement: "above",
-  });
 
   return (
-    <span
-      ref={setTriggerRef}
+    <HoverPreview
+      enabled={canShowCard}
+      width={267}
+      placement="above"
       className="relative"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onFocus={handleEnter}
-      onBlur={handleBlur}
-      onPointerDown={handlePointerDown}
-    >
-      <a
-        href={`https://github.com/${username}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#ffffff] hover:text-[#ffffff]"
-        onClick={handleTriggerClick}
-      >
-        my work on GitHub
-      </a>
-      <AnimatePresence>
-        {open && canShowCard && (
+      trigger={({ onClick }) => (
+        <a
+          href={`https://github.com/${username}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#ffffff] hover:text-[#ffffff]"
+          onClick={onClick}
+        >
+          my work on GitHub
+        </a>
+      )}
+      card={({ cardRef, style, onMouseEnter, onMouseLeave }) =>
+        profile &&
+        contributions && (
           <GitHubHoverCard
             profile={profile}
             contributions={contributions}
             cardRef={cardRef}
-            style={floatingStyle}
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
+            style={style}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           />
-        )}
-      </AnimatePresence>
-    </span>
+        )
+      }
+    />
   );
 }

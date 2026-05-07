@@ -13,7 +13,7 @@ import {
   type RefObject,
 } from "react";
 
-type Placement = "above" | "right";
+export type HoverCardPlacement = "above" | "right";
 
 function clamp(value: number, min: number, max: number) {
   if (max < min) return min;
@@ -134,7 +134,7 @@ export function useFloatingHoverCard({
   cardRef: RefObject<HTMLDivElement | null>;
   width: number;
   height?: number;
-  placement: Placement;
+  placement: HoverCardPlacement;
   gap?: number;
   margin?: number;
 }) {

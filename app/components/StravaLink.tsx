@@ -1,11 +1,7 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
+import { HoverPreview } from "./HoverPreview";
 import { StravaHoverCard } from "./StravaHoverCard";
-import {
-  useFloatingHoverCard,
-  useHoverCardTrigger,
-} from "./useHoverCard";
 import type { StravaSummary } from "../lib/strava";
 
 export function StravaLink({
@@ -18,56 +14,36 @@ export function StravaLink({
   children: React.ReactNode;
 }) {
   const canShowCard = summary !== null;
-  const {
-    open,
-    triggerRef,
-    setTriggerRef,
-    cardRef,
-    handleEnter,
-    handleLeave,
-    handleBlur,
-    handlePointerDown,
-    handleTriggerClick,
-  } = useHoverCardTrigger({ enabled: canShowCard });
-  const floatingStyle = useFloatingHoverCard({
-    open: open && canShowCard,
-    triggerRef,
-    cardRef,
-    width: 280,
-    placement: "above",
-  });
 
   return (
-    <span
-      ref={setTriggerRef}
+    <HoverPreview
+      enabled={canShowCard}
+      width={280}
+      placement="above"
       className="relative"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onFocus={handleEnter}
-      onBlur={handleBlur}
-      onPointerDown={handlePointerDown}
-    >
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#ffffff] hover:text-[#ffffff]"
-        onClick={handleTriggerClick}
-      >
-        {children}
-      </a>
-      <AnimatePresence>
-        {open && canShowCard && (
+      trigger={({ onClick }) => (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#ffffff] hover:text-[#ffffff]"
+          onClick={onClick}
+        >
+          {children}
+        </a>
+      )}
+      card={({ cardRef, style, onMouseEnter, onMouseLeave }) =>
+        summary && (
           <StravaHoverCard
             href={href}
             summary={summary}
             cardRef={cardRef}
-            style={floatingStyle}
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
+            style={style}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           />
-        )}
-      </AnimatePresence>
-    </span>
+        )
+      }
+    />
   );
 }

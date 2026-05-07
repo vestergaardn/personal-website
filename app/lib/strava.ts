@@ -1,50 +1,22 @@
-export type StravaSport =
-  | "ride"
-  | "run"
-  | "walk"
-  | "swim"
-  | "other";
+import {
+  buildStravaSummary,
+  classifyStravaSport,
+  type StravaActivity,
+  type StravaAthleteSnapshot,
+  type StravaSummary,
+} from "./stravaSummary";
 
-export type StravaActivity = {
-  id: number;
-  date: string; // YYYY-MM-DD in athlete's local time
-  sport: StravaSport;
-};
-
-export type StravaDayActivity = {
-  id: number;
-  sport: StravaSport;
-};
-
-export type StravaSummary = {
-  weeks: Array<Array<StravaDay>>; // Mon-Sun rows; rows are calendar weeks ending with current week
-  streakWeeks: number;
-  totalActivities: number; // Lifetime activity count across ride/run/swim
-  avatarUrl: string | null;
-  isPremium: boolean;
-};
-
-export type StravaDay =
-  | { kind: "blank" } // padding for prev/next month
-  | {
-      kind: "day";
-      day: number;
-      isToday: boolean;
-      isFuture: boolean;
-      activities: StravaDayActivity[]; // empty = no activity
-    };
+export type {
+  StravaActivity,
+  StravaAthleteSnapshot,
+  StravaDay,
+  StravaDayActivity,
+  StravaSport,
+  StravaSummary,
+} from "./stravaSummary";
 
 const TOKEN_URL = "https://www.strava.com/oauth/token";
 const ACTIVITIES_URL = "https://www.strava.com/api/v3/athlete/activities";
-
-function classifySport(type: string): StravaSport {
-  const t = type.toLowerCase();
-  if (t.includes("ride") || t.includes("bike")) return "ride";
-  if (t.includes("run")) return "run";
-  if (t.includes("walk") || t.includes("hike")) return "walk";
-  if (t.includes("swim")) return "swim";
-  return "other";
-}
 
 async function getAccessToken(): Promise<string | null> {
   const clientId = process.env.STRAVA_CLIENT_ID;
@@ -70,13 +42,13 @@ async function getAccessToken(): Promise<string | null> {
 
 async function fetchAthlete(
   accessToken: string
-): Promise<{ id: number | null; avatarUrl: string | null; isPremium: boolean }> {
+): Promise<StravaAthleteSnapshot> {
   try {
     const res = await fetch("https://www.strava.com/api/v3/athlete", {
       headers: { Authorization: `Bearer ${accessToken}` },
       next: { revalidate: 86400 },
     });
-    if (!res.ok) return { id: null, avatarUrl: null, isPremium: false };
+    if (!res.ok) return { avatarUrl: null, isPremium: false };
     const data = (await res.json()) as {
       id?: number;
       profile?: string;
@@ -85,12 +57,11 @@ async function fetchAthlete(
       summit?: boolean;
     };
     return {
-      id: data.id ?? null,
       avatarUrl: data.profile_medium ?? data.profile ?? null,
       isPremium: Boolean(data.premium ?? data.summit),
     };
   } catch {
-    return { id: null, avatarUrl: null, isPremium: false };
+    return { avatarUrl: null, isPremium: false };
   }
 }
 
@@ -146,101 +117,13 @@ async function fetchActivities(
       all.push({
         id: a.id,
         date,
-        sport: classifySport(a.sport_type ?? a.type ?? ""),
+        sport: classifyStravaSport(a.sport_type ?? a.type ?? ""),
       });
     }
     if (batch.length < 100) break;
     page += 1;
   }
   return all;
-}
-
-function isoLocal(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
-
-function startOfWeekMonday(d: Date): Date {
-  const out = new Date(d);
-  const dow = out.getDay(); // 0=Sun..6=Sat
-  const diff = dow === 0 ? -6 : 1 - dow;
-  out.setDate(out.getDate() + diff);
-  out.setHours(0, 0, 0, 0);
-  return out;
-}
-
-function computeStreak(activeDays: Set<string>, today: Date) {
-  // Walk back week-by-week (Mon-Sun) starting from current week.
-  // The current week counts when it has activities, but an empty current
-  // week doesn't break the streak since the week isn't over yet.
-  const weekStart = startOfWeekMonday(today);
-  let weeks = 0;
-  let activitiesInStreak = 0;
-  let isCurrentWeek = true;
-  while (true) {
-    let count = 0;
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(weekStart);
-      d.setDate(weekStart.getDate() + i);
-      if (d > today) break;
-      if (activeDays.has(isoLocal(d))) count += 1;
-    }
-    if (count === 0 && !isCurrentWeek) break;
-    if (count > 0) {
-      weeks += 1;
-      activitiesInStreak += count;
-    }
-    isCurrentWeek = false;
-    weekStart.setDate(weekStart.getDate() - 7);
-    if (weeks > 520) break; // 10y safety cap
-  }
-  return { weeks, activitiesInStreak };
-}
-
-function buildRollingWeeks(
-  weeksToShow: number,
-  activities: StravaActivity[],
-  today: Date
-): Array<Array<StravaDay>> {
-  const byDate = new Map<string, StravaDayActivity[]>();
-  for (const a of activities) {
-    const list = byDate.get(a.date) ?? [];
-    list.push({ id: a.id, sport: a.sport });
-    byDate.set(a.date, list);
-  }
-
-  const todayMidnight = new Date(today);
-  todayMidnight.setHours(0, 0, 0, 0);
-  const todayIso = isoLocal(todayMidnight);
-
-  // Start grid at Monday of the week (weeksToShow - 1) before the current week.
-  const dow = todayMidnight.getDay(); // 0=Sun..6=Sat
-  const daysSinceMonday = (dow + 6) % 7;
-  const start = new Date(todayMidnight);
-  start.setDate(todayMidnight.getDate() - daysSinceMonday - (weeksToShow - 1) * 7);
-
-  const totalDays = weeksToShow * 7;
-  const cells: StravaDay[] = [];
-  for (let i = 0; i < totalDays; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    const iso = isoLocal(d);
-    cells.push({
-      kind: "day",
-      day: d.getDate(),
-      isToday: iso === todayIso,
-      isFuture: d > todayMidnight,
-      activities: byDate.get(iso) ?? [],
-    });
-  }
-
-  const weeks: Array<Array<StravaDay>> = [];
-  for (let i = 0; i < cells.length; i += 7) {
-    weeks.push(cells.slice(i, i + 7));
-  }
-  return weeks;
 }
 
 export async function getStravaSummary(): Promise<StravaSummary | null> {
@@ -259,18 +142,13 @@ export async function getStravaSummary(): Promise<StravaSummary | null> {
       fetchAthlete(token),
       fetchTotalActivityCount(token),
     ]);
-    const activeDays = new Set(activities.map((a) => a.date));
 
-    const weeks = buildRollingWeeks(4, activities, today);
-    const { weeks: streakWeeks } = computeStreak(activeDays, today);
-
-    return {
-      weeks,
-      streakWeeks,
+    return buildStravaSummary({
+      activities,
+      athlete,
       totalActivities,
-      avatarUrl: athlete.avatarUrl,
-      isPremium: athlete.isPremium,
-    };
+      today,
+    });
   } catch {
     return null;
   }
