@@ -4,27 +4,26 @@ import { motion } from "motion/react";
 
 export function PostbuddyHoverCard({
   href,
-  open,
   onMouseEnter,
   onMouseLeave,
 }: {
   href: string;
-  open: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -4, scale: 0.96 }}
-      animate={open ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -4, scale: 0.96 }}
-      transition={{ duration: open ? 0.2 : 0.15, ease: "easeOut" }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, x: -4, scale: 0.96, transition: { duration: 0.15 } }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className="absolute top-0 left-full z-50 ml-[24px]"
       style={{
         width: 200,
         height: 224,
-        pointerEvents: open ? "auto" : "none",
+        pointerEvents: "auto",
         transformOrigin: "left center",
       }}
     >
