@@ -49,7 +49,7 @@ export function GitHubHoverCard({
               {profile.login}
             </a>
           </p>
-          <p className="mt-0.5 text-sm font-normal leading-snug text-[#57606a]">
+          <p className="hover-card-body mt-0.5">
             {statusLine}
           </p>
         </div>

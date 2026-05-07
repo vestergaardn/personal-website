@@ -149,7 +149,7 @@ export function StravaCalendar({ summary }: { summary: StravaSummary }) {
         </div>
       </div>
 
-      <div className="mb-1 grid grid-cols-7 text-[11px] font-medium text-[#9ca3af]">
+      <div className="hover-card-calendar-label mb-1 grid grid-cols-7">
         {DOW.map((label, i) => (
           <div key={i} className="flex justify-center">
             {label}
