@@ -85,7 +85,13 @@ function SportIcon({ sport }: { sport: StravaSport }) {
   }
 }
 
-function DayCell({ cell }: { cell: StravaDay }) {
+function DayCell({
+  cell,
+  profileHref,
+}: {
+  cell: StravaDay;
+  profileHref: string;
+}) {
   if (cell.kind === "blank") {
     return <div className="aspect-square" />;
   }
@@ -101,10 +107,10 @@ function DayCell({ cell }: { cell: StravaDay }) {
     return (
       <div className="flex aspect-square items-center justify-center">
         <a
-          href={`https://www.strava.com/activities/${first.id}`}
+          href={profileHref}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`View ${first.sport} activity on Strava`}
+          aria-label={`Open Strava profile from ${first.sport} activity`}
           className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-[#ffffff] transition-transform hover:scale-110"
         >
           <SportIcon sport={first.sport} />
@@ -128,12 +134,26 @@ function DayCell({ cell }: { cell: StravaDay }) {
   );
 }
 
-export function StravaCalendar({ summary }: { summary: StravaSummary }) {
+export function StravaCalendar({
+  summary,
+  profileHref,
+}: {
+  summary: StravaSummary;
+  profileHref: string;
+}) {
   return (
     <div className="text-[#111827]">
       <div className="mb-3 flex items-center gap-4">
         {summary.avatarUrl && summary.isPremium && (
-          <StravaShield src={summary.avatarUrl} />
+          <a
+            href={profileHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Strava profile"
+            className="block rounded-[8px] transition-transform hover:scale-105"
+          >
+            <StravaShield src={summary.avatarUrl} />
+          </a>
         )}
         <div>
           <div className="text-[12px] text-[#6b7280]">Streak</div>
@@ -164,7 +184,7 @@ export function StravaCalendar({ summary }: { summary: StravaSummary }) {
         className="grid grid-cols-7"
       >
         {summary.weeks.flat().map((cell, i) => (
-          <DayCell key={i} cell={cell} />
+          <DayCell key={i} cell={cell} profileHref={profileHref} />
         ))}
       </motion.div>
     </div>

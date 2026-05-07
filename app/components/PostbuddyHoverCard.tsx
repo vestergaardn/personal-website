@@ -1,30 +1,38 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { CSSProperties, Ref } from "react";
 
 export function PostbuddyHoverCard({
   href,
+  cardRef,
+  style,
   onMouseEnter,
   onMouseLeave,
 }: {
   href: string;
+  cardRef?: Ref<HTMLDivElement>;
+  style?: CSSProperties;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
   return (
     <motion.div
+      ref={cardRef}
+      data-hover-card="postbuddy"
       initial={{ opacity: 0, x: -4, scale: 0.96 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: -4, scale: 0.96, transition: { duration: 0.15 } }}
       transition={{ duration: 0.2, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="absolute top-0 left-full z-50 ml-[24px]"
+      className="z-50"
       style={{
         width: 200,
         height: 224,
         pointerEvents: "auto",
         transformOrigin: "left center",
+        ...style,
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { GitHubHoverCard } from "./GitHubHoverCard";
+import {
+  useFloatingHoverCard,
+  useHoverCardTrigger,
+} from "./useHoverCard";
 import type { ContributionDay, GitHubProfile } from "../lib/github";
 
 export function GitHubLink({
@@ -14,41 +17,42 @@ export function GitHubLink({
   profile: GitHubProfile | null;
   contributions: ContributionDay[] | null;
 }) {
-  const [open, setOpen] = useState(false);
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const canShowCard = profile !== null && contributions !== null;
-
-  const clearLeaveTimer = () => {
-    if (leaveTimer.current) {
-      clearTimeout(leaveTimer.current);
-      leaveTimer.current = null;
-    }
-  };
-
-  const handleEnter = () => {
-    clearLeaveTimer();
-    setOpen(true);
-  };
-
-  const handleLeave = () => {
-    clearLeaveTimer();
-    leaveTimer.current = setTimeout(() => setOpen(false), 60);
-  };
+  const {
+    open,
+    triggerRef,
+    setTriggerRef,
+    cardRef,
+    handleEnter,
+    handleLeave,
+    handleBlur,
+    handlePointerDown,
+    handleTriggerClick,
+  } = useHoverCardTrigger({ enabled: canShowCard });
+  const floatingStyle = useFloatingHoverCard({
+    open: open && canShowCard,
+    triggerRef,
+    cardRef,
+    width: 267,
+    placement: "above",
+  });
 
   return (
     <span
+      ref={setTriggerRef}
       className="relative"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
-      onBlur={handleLeave}
+      onBlur={handleBlur}
+      onPointerDown={handlePointerDown}
     >
       <a
         href={`https://github.com/${username}`}
         target="_blank"
         rel="noopener noreferrer"
         className="text-[#ffffff] hover:text-[#ffffff]"
+        onClick={handleTriggerClick}
       >
         my work on GitHub
       </a>
@@ -57,6 +61,8 @@ export function GitHubLink({
           <GitHubHoverCard
             profile={profile}
             contributions={contributions}
+            cardRef={cardRef}
+            style={floatingStyle}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
           />
