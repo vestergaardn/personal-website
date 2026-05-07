@@ -1,7 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { PostbuddyHoverCard } from "./PostbuddyHoverCard";
+import {
+  useFloatingHoverCard,
+  useHoverCardTrigger,
+} from "./useHoverCard";
 
 export function PostbuddyTimelineRow({
   year,
@@ -14,36 +17,40 @@ export function PostbuddyTimelineRow({
   type: string;
   href: string;
 }) {
-  const [open, setOpen] = useState(false);
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearLeaveTimer = () => {
-    if (leaveTimer.current) {
-      clearTimeout(leaveTimer.current);
-      leaveTimer.current = null;
-    }
-  };
-
-  const handleEnter = () => {
-    clearLeaveTimer();
-    setOpen(true);
-  };
-
-  const handleLeave = () => {
-    clearLeaveTimer();
-    leaveTimer.current = setTimeout(() => setOpen(false), 60);
-  };
+  const {
+    open,
+    triggerRef,
+    setTriggerRef,
+    cardRef,
+    handleEnter,
+    handleLeave,
+    handleBlur,
+    handlePointerDown,
+    handleTriggerClick,
+  } = useHoverCardTrigger();
+  const floatingStyle = useFloatingHoverCard({
+    open,
+    triggerRef,
+    cardRef,
+    width: 200,
+    height: 224,
+    placement: "right",
+    gap: 24,
+  });
 
   return (
     <div
+      ref={setTriggerRef}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
-      onBlur={handleLeave}
+      onBlur={handleBlur}
+      onPointerDown={handlePointerDown}
     >
       <a
         href={href}
         className="timeline-row"
+        onClick={handleTriggerClick}
       >
         <span className="timeline-year">
           {year}
@@ -69,6 +76,8 @@ export function PostbuddyTimelineRow({
       <PostbuddyHoverCard
         href={href}
         open={open}
+        cardRef={cardRef}
+        style={floatingStyle}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       />
