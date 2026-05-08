@@ -33,7 +33,7 @@ export function CopenhagenTime() {
 
   return (
     <span className="tabular-nums">
-      <NumberFlow value={time.hour} />
+      <NumberFlow value={time.hour} format={{ minimumIntegerDigits: 2 }} />
       :
       <NumberFlow value={time.minute} format={{ minimumIntegerDigits: 2 }} />
       {time.dayPeriod}&nbsp;in{" "}
