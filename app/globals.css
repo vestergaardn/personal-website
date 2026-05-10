@@ -262,6 +262,80 @@ body {
   }
 }
 
+.aqua-radio-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.aqua-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.aqua-radio-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.aqua-orb {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.aqua-orb-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.aqua-orb-top {
+  z-index: 2;
+}
+
+/* Inset glow stack from Figma. Values are in em so they scale with
+   the orb size (font-size on .aqua-orb equals the orb diameter). */
+.aqua-orb-glow {
+  position: absolute;
+  inset: calc(-0.5 / 12 * 1em);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow:
+    inset 0 calc(1.752 / 12 * 1em) calc(4.438 / 12 * 1em) 0 rgba(141, 202, 255, 0.84),
+    inset 0 calc(-0.584 / 12 * 1em) calc(1.022 / 12 * 1em) 0 rgba(141, 202, 255, 0.52),
+    inset 0 calc(6.424 / 12 * 1em) calc(5.898 / 12 * 1em) 0 rgba(0, 182, 253, 0.55),
+    inset 0 0 calc(10.677 / 12 * 1em) 0 rgba(0, 119, 223, 0.5);
+}
+
+.aqua-radio-input:focus-visible + .aqua-orb {
+  outline: 2px solid #6aa9ff;
+  outline-offset: 2px;
+  border-radius: 9999px;
+}
+
+.aqua-radio-label {
+  font-size: 18px;
+  font-weight: 400;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
