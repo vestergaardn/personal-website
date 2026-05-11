@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, type CSSProperties } from "react";
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
 import {
@@ -94,8 +94,8 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="site-shell">
-      <header className="site-header">
+    <div className="site-shell orchestration">
+      <header className="site-header" style={{ "--stagger": 0 } as CSSProperties}>
         <div className="profile-lockup">
           <Image
             src="/cv-favicon-page.png"
@@ -116,7 +116,7 @@ export default async function Home() {
         </div>
       </header>
 
-      <section className="site-section bio-section">
+      <section className="site-section bio-section" style={{ "--stagger": 1 } as CSSProperties}>
         <p className="mb-0">
           I’m a designer and engineer. I’m drawn to the details that most
           people never notice, but always feel.
@@ -155,7 +155,7 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="site-section timeline-section">
+      <section className="site-section timeline-section" style={{ "--stagger": 2 } as CSSProperties}>
         <TimelineTabs work={timeline} tools={tools} />
       </section>
     </div>
