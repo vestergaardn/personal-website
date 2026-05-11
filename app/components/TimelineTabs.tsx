@@ -39,7 +39,7 @@ export function TimelineTabs({
           value={tab}
           onChange={setTab}
           options={TABS}
-          size={12}
+          size={15}
         />
       </div>
 
