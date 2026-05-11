@@ -6,10 +6,11 @@
 <filter id="filter0_f_0_5" x="2.69299e-09" y="0" width="9.66293" height="5.55893" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="0.273733" result="effect1_foregroundBlur_0_5"/>
+<feGaussianBlur stdDeviation="0.173733" result="effect1_foregroundBlur_0_5"/>
 </filter>
 <linearGradient id="paint0_linear_0_5" x1="4.90456" y1="0.547465" x2="4.79434" y2="5.01055" gradientUnits="userSpaceOnUse">
-<stop stop-color="white" stop-opacity="0.6"/>
+<stop stop-color="white" stop-opacity="0.95"/>
+<stop offset="0.55" stop-color="white" stop-opacity="0.55"/>
 <stop offset="1" stop-color="white" stop-opacity="0"/>
 </linearGradient>
 </defs>
