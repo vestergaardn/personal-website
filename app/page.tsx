@@ -2,11 +2,11 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { CopenhagenTime } from "./components/CopenhagenTime";
 import { GitHubLink } from "./components/GitHubLink";
-import { PostbuddyTimelineRow } from "./components/PostbuddyTimelineRow";
 import {
   StravaRaceLink,
   StravaRaceLinkFallback,
 } from "./components/StravaRaceLink";
+import { TimelineTabs } from "./components/TimelineTabs";
 import { getGitHubContributions, getGitHubProfile } from "./lib/github";
 
 export const revalidate = 3600;
@@ -14,26 +14,77 @@ export const revalidate = 3600;
 const GITHUB_USERNAME = "vestergaardn";
 
 type TimelineEntry = {
-  year: string;
   project: string;
   type: string;
   href?: string;
 };
 
+type ToolEntry = {
+  name: string;
+  description: string;
+  href?: string;
+};
+
 const timeline: TimelineEntry[] = [
   {
-    year: "2026",
     project: "nine three quarters",
     type: "Free lab for builders",
     href: "https://www.ninethreequarters.com/",
   },
   {
-    year: "2026",
     project: "Tweaky",
     type: "Weekend hack",
     href: "https://tweaky.vercel.app/",
   },
-  { year: "2024", project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
+  { project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
+];
+
+const tools: ToolEntry[] = [
+  {
+    name: "Claude Code",
+    description: "Agentic coding in the terminal",
+    href: "https://claude.com/claude-code",
+  },
+  {
+    name: "Conductor",
+    description: "Run many Claude agents in parallel",
+    href: "https://conductor.build/",
+  },
+  {
+    name: "Paper Design",
+    description: "Animated, programmable UI textures",
+    href: "https://paper.design/",
+  },
+  {
+    name: "Figma",
+    description: "Where most pixels start their life",
+    href: "https://www.figma.com/",
+  },
+  {
+    name: "Vercel",
+    description: "Where this site lives",
+    href: "https://vercel.com/",
+  },
+  {
+    name: "Mobbin MCP",
+    description: "Mobile/web design references on tap",
+    href: "https://mobbin.com/",
+  },
+  {
+    name: "Field Notes",
+    description: "Pocket notebook for raw thoughts",
+    href: "https://fieldnotesbrand.com/",
+  },
+  {
+    name: "Aeon Ballpoint Pen",
+    description: "Daily-carry pen",
+    href: "https://aeon-row.com/",
+  },
+  {
+    name: "Kindle",
+    description: "Quiet reading device",
+    href: "https://www.amazon.com/kindle",
+  },
 ];
 
 export default async function Home() {
@@ -105,55 +156,7 @@ export default async function Home() {
       </section>
 
       <section className="site-section timeline-section">
-        <div className="relative">
-          <div className="timeline-heading">
-            <span className="timeline-heading-year">Year</span>
-            <span className="timeline-slash" aria-hidden />
-            <span className="timeline-project">Project</span>
-            <span className="timeline-type">Type</span>
-          </div>
-          {timeline.map((entry) => {
-            if (entry.project === "Postbuddy") {
-              return (
-                <PostbuddyTimelineRow
-                  key={`${entry.year}-${entry.project}`}
-                  year={entry.year}
-                  project={entry.project}
-                  type={entry.type}
-                  href={entry.href ?? "#"}
-                />
-              );
-            }
-            const isExternal = entry.href?.startsWith("http");
-            return (
-              <a
-                key={`${entry.year}-${entry.project}`}
-                href={entry.href ?? "#"}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noreferrer" : undefined}
-                className="timeline-row"
-              >
-                <span className="timeline-year">
-                  {entry.year}
-                </span>
-                <span className="timeline-slash" aria-hidden>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path
-                      d="M12.4995 5.66968L7.49951 14.3299"
-                      stroke="var(--slash-muted)"
-                      strokeWidth="1.3"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
-                <span className="timeline-project">{entry.project}</span>
-                <span className="timeline-type">
-                  {entry.type}
-                </span>
-              </a>
-            );
-          })}
-        </div>
+        <TimelineTabs work={timeline} tools={tools} />
       </section>
     </div>
   );

@@ -156,9 +156,10 @@ export function AquaOrb({
   showSideShadows = true,
   showGloss = true,
 }: AquaOrbProps) {
-  const uncheckedFilter = active
-    ? undefined
-    : `grayscale(1) brightness(1.45) drop-shadow(0 ${0.86 / 12}em ${0.12 / 12}em rgba(0,0,0,0.22))`;
+  const shadow = `drop-shadow(0 max(1px, ${0.86 / 12}em) max(0.5px, ${0.12 / 12}em) rgba(0,0,0,0.3))`;
+  const filter = active
+    ? shadow
+    : `grayscale(1) brightness(1.45) ${shadow}`;
   return (
     <span
       className={`aqua-orb${active ? "" : " aqua-orb--unchecked"}`}
@@ -166,7 +167,7 @@ export function AquaOrb({
         width: size,
         height: size,
         fontSize: size,
-        ...(uncheckedFilter ? { filter: uncheckedFilter } : {}),
+        filter,
       }}
       aria-hidden
     >
