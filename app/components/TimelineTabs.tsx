@@ -10,9 +10,12 @@ export type WorkEntry = {
   href?: string;
 };
 
+export type ToolCategory = "App" | "Physical" | "Web";
+
 export type ToolEntry = {
   name: string;
   description: string;
+  category: ToolCategory;
   href?: string;
 };
 
@@ -78,7 +81,10 @@ export function TimelineTabs({
               const isExternal = entry.href?.startsWith("http");
               const Row = (
                 <>
-                  <span className="timeline-project">{entry.name}</span>
+                  <span className="timeline-project">
+                    {entry.name}
+                    <span className="timeline-chip">{entry.category}</span>
+                  </span>
                   <span className="timeline-type">{entry.description}</span>
                 </>
               );
