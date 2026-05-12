@@ -22,7 +22,7 @@
   --type-weight-regular: 400;
   --type-weight-medium: 500;
   --type-weight-bold: 700;
-  --timeline-row-padding-x: 1rem;
+  --timeline-row-padding-x: 0;
   --timeline-row-padding-y: 0.75rem;
 }
 
