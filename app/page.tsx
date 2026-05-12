@@ -41,19 +41,14 @@ const timeline: TimelineEntry[] = [
 
 const tools: ToolEntry[] = [
   {
-    name: "Claude Code",
-    description: "Agentic coding in the terminal",
-    href: "https://claude.com/claude-code",
+    name: "Codex",
+    description: "Agentic coding assistant",
+    href: "https://openai.com/codex/",
   },
   {
-    name: "Conductor",
-    description: "Run many Claude agents in parallel",
-    href: "https://conductor.build/",
-  },
-  {
-    name: "Paper Design",
-    description: "Animated, programmable UI textures",
-    href: "https://paper.design/",
+    name: "Field Notes",
+    description: "Pocket notebook",
+    href: "https://fieldnotesbrand.com/",
   },
   {
     name: "Figma",
@@ -61,29 +56,29 @@ const tools: ToolEntry[] = [
     href: "https://www.figma.com/",
   },
   {
-    name: "Vercel",
-    description: "Where this site lives",
-    href: "https://vercel.com/",
-  },
-  {
-    name: "Mobbin MCP",
-    description: "Mobile/web design references on tap",
-    href: "https://mobbin.com/",
-  },
-  {
-    name: "Field Notes",
-    description: "Pocket notebook for raw thoughts",
-    href: "https://fieldnotesbrand.com/",
-  },
-  {
     name: "Aeon Ballpoint Pen",
     description: "Daily-carry pen",
     href: "https://aeon-row.com/",
   },
   {
-    name: "Kindle",
-    description: "Quiet reading device",
-    href: "https://www.amazon.com/kindle",
+    name: "Conductor",
+    description: "Organized coding agents",
+    href: "https://conductor.build/",
+  },
+  {
+    name: "Xteink X3",
+    description: "OS alternative to Kindle",
+    href: "https://www.xteink.com/",
+  },
+  {
+    name: "Mobbin",
+    description: "MCP server for design research",
+    href: "https://mobbin.com/",
+  },
+  {
+    name: "Vercel",
+    description: "Where this site lives",
+    href: "https://vercel.com/",
   },
 ];
 
