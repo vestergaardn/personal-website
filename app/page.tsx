@@ -58,7 +58,7 @@ const tools: ToolEntry[] = [
   {
     name: "Aeon Ballpoint Pen",
     description: "Daily-carry pen",
-    href: "https://aeon-row.com/",
+    href: "https://stilform.com/collections/ballpoint-pen/products/ballpoint-titanium-aeon",
   },
   {
     name: "Conductor",
