@@ -80,6 +80,11 @@ const tools: ToolEntry[] = [
     description: "Where this site lives",
     href: "https://vercel.com/",
   },
+  {
+    name: "ImprovMX",
+    description: "Free email forwarding service",
+    href: "https://improvmx.com/",
+  },
 ];
 
 export default async function Home() {
