@@ -13,9 +13,12 @@ export const revalidate = 3600;
 
 const GITHUB_USERNAME = "vestergaardn";
 
+type WorkCategory = "Startup" | "Hobby";
+
 type TimelineEntry = {
   project: string;
   type: string;
+  category: WorkCategory;
   href?: string;
 };
 
@@ -31,15 +34,22 @@ type ToolEntry = {
 const timeline: TimelineEntry[] = [
   {
     project: "nine three quarters",
-    type: "Free lab for builders",
+    type: "Free lab for builders backed by unicorn founders",
+    category: "Startup",
     href: "https://www.ninethreequarters.com/",
   },
   {
     project: "Tweaky",
-    type: "Weekend hack",
+    type: "Open Sourced feature development",
+    category: "Hobby",
     href: "https://tweaky.vercel.app/",
   },
-  { project: "Postbuddy", type: "Startup (acquired)", href: "/carrying-alone" },
+  {
+    project: "Postbuddy",
+    type: "My first company. Now acquired",
+    category: "Startup",
+    href: "https://postbuddy.tech",
+  },
 ];
 
 const tools: ToolEntry[] = [

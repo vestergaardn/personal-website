@@ -2,11 +2,13 @@
 
 import { useState, type CSSProperties } from "react";
 import { AquaRadioGroup } from "./AquaRadio";
-import { PostbuddyTimelineRow } from "./PostbuddyTimelineRow";
+
+export type WorkCategory = "Startup" | "Hobby";
 
 export type WorkEntry = {
   project: string;
   type: string;
+  category: WorkCategory;
   href?: string;
 };
 
@@ -50,17 +52,6 @@ export function TimelineTabs({
         {tab === "work"
           ? work.map((entry, index) => {
               const style = { "--stagger": index } as CSSProperties;
-              if (entry.project === "Postbuddy") {
-                return (
-                  <div key={entry.project} style={style}>
-                    <PostbuddyTimelineRow
-                      project={entry.project}
-                      type={entry.type}
-                      href={entry.href ?? "#"}
-                    />
-                  </div>
-                );
-              }
               const isExternal = entry.href?.startsWith("http");
               return (
                 <a
@@ -71,7 +62,10 @@ export function TimelineTabs({
                   className="timeline-row"
                   style={style}
                 >
-                  <span className="timeline-project">{entry.project}</span>
+                  <span className="timeline-project">
+                    {entry.project}
+                    <span className="timeline-chip">{entry.category}</span>
+                  </span>
                   <span className="timeline-type">{entry.type}</span>
                 </a>
               );
