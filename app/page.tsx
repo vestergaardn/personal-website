@@ -19,9 +19,12 @@ type TimelineEntry = {
   href?: string;
 };
 
+type ToolCategory = "App" | "Physical" | "Web";
+
 type ToolEntry = {
   name: string;
   description: string;
+  category: ToolCategory;
   href?: string;
 };
 
@@ -43,46 +46,55 @@ const tools: ToolEntry[] = [
   {
     name: "Codex",
     description: "Agentic coding assistant",
+    category: "App",
     href: "https://openai.com/codex/",
   },
   {
     name: "Field Notes",
     description: "Pocket notebook",
+    category: "Physical",
     href: "https://fieldnotesbrand.com/",
   },
   {
     name: "Figma",
     description: "Where most pixels start their life",
+    category: "App",
     href: "https://www.figma.com/",
   },
   {
-    name: "Aeon Ballpoint Pen",
-    description: "Daily-carry pen",
+    name: "Aeon pen",
+    description: "Beautiful ballpoint pen",
+    category: "Physical",
     href: "https://stilform.com/collections/ballpoint-pen/products/ballpoint-titanium-aeon",
   },
   {
     name: "Conductor",
     description: "Organized coding agents",
+    category: "App",
     href: "https://conductor.build/",
   },
   {
     name: "Xteink X3",
     description: "OS alternative to Kindle",
+    category: "Physical",
     href: "https://www.xteink.com/",
   },
   {
     name: "Mobbin",
     description: "MCP server for design research",
+    category: "Web",
     href: "https://mobbin.com/",
   },
   {
     name: "Vercel",
     description: "Where this site lives",
+    category: "Web",
     href: "https://vercel.com/",
   },
   {
     name: "ImprovMX",
     description: "Free email forwarding service",
+    category: "Web",
     href: "https://improvmx.com/",
   },
 ];
