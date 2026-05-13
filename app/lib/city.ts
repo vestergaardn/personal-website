@@ -4,18 +4,26 @@ import { getSkyBandAtMinute } from "./sky";
 
 export type CityId =
   | "copenhagen"
-  | "boulder"
-  | "osaka"
-  | "babylon"
-  | "san-francisco"
-  | "sydney"
-  | "auckland"
-  | "buenos-aires"
-  | "reykjavik"
-  | "kathmandu"
-  | "nuuk"
-  | "sparta"
-  | "zurich";
+  | "damascus"
+  | "petra"
+  | "alexandria"
+  | "aksum"
+  | "troy"
+  | "athens"
+  | "olympia"
+  | "pompeii"
+  | "jerusalem"
+  | "byzantium"
+  | "samarkand"
+  | "baghdad"
+  | "varanasi"
+  | "angkor"
+  | "xian"
+  | "kyoto"
+  | "easter-island"
+  | "timbuktu"
+  | "mesa-verde"
+  | "machu-picchu";
 
 export type City = {
   id: CityId;
@@ -33,81 +41,129 @@ export const CITIES: Record<CityId, City> = {
     name: "Copenhagen",
     timeZone: "Europe/Copenhagen",
   },
-  boulder: {
-    id: "boulder",
-    name: "Boulder",
-    timeZone: "America/Denver",
+  damascus: {
+    id: "damascus",
+    name: "Damascus",
+    timeZone: "Asia/Damascus",
   },
-  osaka: {
-    id: "osaka",
-    name: "Osaka",
-    timeZone: "Asia/Tokyo",
+  petra: {
+    id: "petra",
+    name: "Petra",
+    timeZone: "Asia/Amman",
   },
-  babylon: {
-    id: "babylon",
-    name: "Babylon",
-    timeZone: "Asia/Baghdad",
+  alexandria: {
+    id: "alexandria",
+    name: "Alexandria",
+    timeZone: "Africa/Cairo",
   },
-  "san-francisco": {
-    id: "san-francisco",
-    name: "San Francisco",
-    timeZone: "America/Los_Angeles",
+  aksum: {
+    id: "aksum",
+    name: "Aksum",
+    timeZone: "Africa/Addis_Ababa",
   },
-  sydney: {
-    id: "sydney",
-    name: "Sydney",
-    timeZone: "Australia/Sydney",
+  troy: {
+    id: "troy",
+    name: "Troy",
+    timeZone: "Europe/Istanbul",
   },
-  auckland: {
-    id: "auckland",
-    name: "Auckland",
-    timeZone: "Pacific/Auckland",
-  },
-  "buenos-aires": {
-    id: "buenos-aires",
-    name: "Buenos Aires",
-    timeZone: "America/Argentina/Buenos_Aires",
-  },
-  reykjavik: {
-    id: "reykjavik",
-    name: "Reykjavik",
-    timeZone: "Atlantic/Reykjavik",
-  },
-  kathmandu: {
-    id: "kathmandu",
-    name: "Kathmandu",
-    timeZone: "Asia/Kathmandu",
-  },
-  nuuk: {
-    id: "nuuk",
-    name: "Nuuk",
-    timeZone: "America/Nuuk",
-  },
-  sparta: {
-    id: "sparta",
-    name: "Sparta",
+  athens: {
+    id: "athens",
+    name: "Athens",
     timeZone: "Europe/Athens",
   },
-  zurich: {
-    id: "zurich",
-    name: "Zurich",
-    timeZone: "Europe/Zurich",
+  olympia: {
+    id: "olympia",
+    name: "Olympia",
+    timeZone: "Europe/Athens",
+  },
+  pompeii: {
+    id: "pompeii",
+    name: "Pompeii",
+    timeZone: "Europe/Rome",
+  },
+  jerusalem: {
+    id: "jerusalem",
+    name: "Jerusalem",
+    timeZone: "Asia/Jerusalem",
+  },
+  byzantium: {
+    id: "byzantium",
+    name: "Byzantium",
+    timeZone: "Europe/Istanbul",
+  },
+  samarkand: {
+    id: "samarkand",
+    name: "Samarkand",
+    timeZone: "Asia/Samarkand",
+  },
+  baghdad: {
+    id: "baghdad",
+    name: "Baghdad",
+    timeZone: "Asia/Baghdad",
+  },
+  varanasi: {
+    id: "varanasi",
+    name: "Varanasi",
+    timeZone: "Asia/Kolkata",
+  },
+  angkor: {
+    id: "angkor",
+    name: "Angkor",
+    timeZone: "Asia/Phnom_Penh",
+  },
+  xian: {
+    id: "xian",
+    name: "Xi'an",
+    timeZone: "Asia/Shanghai",
+  },
+  kyoto: {
+    id: "kyoto",
+    name: "Kyoto",
+    timeZone: "Asia/Tokyo",
+  },
+  "easter-island": {
+    id: "easter-island",
+    name: "Easter Island",
+    timeZone: "Pacific/Easter",
+  },
+  timbuktu: {
+    id: "timbuktu",
+    name: "Timbuktu",
+    timeZone: "Africa/Bamako",
+  },
+  "mesa-verde": {
+    id: "mesa-verde",
+    name: "Mesa Verde",
+    timeZone: "America/Denver",
+  },
+  "machu-picchu": {
+    id: "machu-picchu",
+    name: "Machu Picchu",
+    timeZone: "America/Lima",
   },
 };
 
 const SHUFFLE_CITY_IDS: CityId[] = [
-  "boulder",
-  "osaka",
-  "babylon",
-  "san-francisco",
-  "sydney",
-  "auckland",
-  "buenos-aires",
-  "reykjavik",
-  "kathmandu",
-  "nuuk",
-  "sparta",
-  "zurich",
+  "damascus",
+  "petra",
+  "alexandria",
+  "aksum",
+  "troy",
+  "athens",
+  "olympia",
+  "pompeii",
+  "jerusalem",
+  "byzantium",
+  "samarkand",
+  "baghdad",
+  "varanasi",
+  "angkor",
+  "xian",
+  "kyoto",
+  "easter-island",
+  "timbuktu",
+  "mesa-verde",
+  "machu-picchu",
 ];
 
 type TimeParts = { hour: number; minute: number; dayPeriod: string };
