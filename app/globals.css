@@ -22,7 +22,7 @@
   --type-weight-regular: 400;
   --type-weight-medium: 500;
   --type-weight-bold: 700;
-  --timeline-row-padding-x: 0;
+  --timeline-row-padding-x: 0.75rem;
   --timeline-row-padding-y: 0.75rem;
 }
 
@@ -131,7 +131,10 @@ body {
   align-items: center;
   gap: 1.5rem;
   min-width: 0;
-  padding: var(--timeline-row-padding-y) var(--timeline-row-padding-x);
+  padding-top: var(--timeline-row-padding-y);
+  padding-bottom: var(--timeline-row-padding-y);
+  padding-left: var(--timeline-row-padding-x);
+  padding-right: var(--timeline-row-padding-x);
   color: var(--text-primary);
   text-decoration: none;
 }

@@ -22,7 +22,7 @@ type TimelineEntry = {
   href?: string;
 };
 
-type ToolCategory = "App" | "Physical" | "Web";
+type ToolCategory = "App" | "Physical" | "Web" | "Skill";
 
 type ToolEntry = {
   name: string;
@@ -106,6 +106,12 @@ const tools: ToolEntry[] = [
     description: "Free email forwarding service",
     category: "Web",
     href: "https://improvmx.com/",
+  },
+  {
+    name: "Matt Pocock",
+    description: "Agentic skill to avoid sloppy code",
+    category: "Skill",
+    href: "https://github.com/mattpocock/skills#skills-for-real-engineers",
   },
 ];
 

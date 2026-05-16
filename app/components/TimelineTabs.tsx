@@ -12,7 +12,7 @@ export type WorkEntry = {
   href?: string;
 };
 
-export type ToolCategory = "App" | "Physical" | "Web";
+export type ToolCategory = "App" | "Physical" | "Web" | "Skill";
 
 export type ToolEntry = {
   name: string;
