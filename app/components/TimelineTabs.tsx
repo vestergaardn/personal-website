@@ -21,21 +21,36 @@ export type ToolEntry = {
   href?: string;
 };
 
-type Tab = "work" | "tools";
+export type BookmarkCategory = "Person" | "Video" | "Reading" | "Other";
+
+export type BookmarkEntry = {
+  name: string;
+  description: string;
+  category: BookmarkCategory;
+  href?: string;
+};
+
+type Tab = "work" | "tools" | "bookmarks";
 
 const TABS: { value: Tab; label: string }[] = [
   { value: "work", label: "Work" },
   { value: "tools", label: "Tools" },
+  { value: "bookmarks", label: "Bookmarks" },
 ];
 
 export function TimelineTabs({
   work,
   tools,
+  bookmarks,
 }: {
   work: WorkEntry[];
   tools: ToolEntry[];
+  bookmarks: BookmarkEntry[];
 }) {
   const [tab, setTab] = useState<Tab>("work");
+
+  const cards: { name: string; description: string; category: string; href?: string }[] =
+    tab === "tools" ? tools : tab === "bookmarks" ? bookmarks : [];
 
   return (
     <div className="relative">
@@ -70,7 +85,7 @@ export function TimelineTabs({
                 </a>
               );
             })
-          : tools.map((entry, index) => {
+          : cards.map((entry, index) => {
               const style = { "--stagger": index } as CSSProperties;
               const isExternal = entry.href?.startsWith("http");
               const Row = (
