@@ -224,12 +224,12 @@ export default async function Home() {
           and take on endurance challenges.
         </p>
         <p className="mb-0">
-          Reach me at{" "}
+          Feel free to reach out on{" "}
           <a
             href="mailto:hello@vestergaardn.com"
             className="font-bold text-[#ffffff] hover:text-[#ffffff]"
           >
-            hello@vestergaardn.com
+            e-mail
           </a>{" "}
           or see more of{" "}
           <span className="font-bold">
