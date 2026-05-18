@@ -31,6 +31,15 @@ type ToolEntry = {
   href?: string;
 };
 
+type BookmarkCategory = "Person" | "Video" | "Reading" | "Other";
+
+type BookmarkEntry = {
+  name: string;
+  description: string;
+  category: BookmarkCategory;
+  href?: string;
+};
+
 const timeline: TimelineEntry[] = [
   {
     project: "nine three quarters",
@@ -115,6 +124,57 @@ const tools: ToolEntry[] = [
   },
 ];
 
+const bookmarks: BookmarkEntry[] = [
+  {
+    name: "Peter Thiel’s Religion",
+    description: "My first stitch with mimetic theory. Life changing",
+    category: "Reading",
+    href: "https://perell.com/essay/peter-thiel/",
+  },
+  {
+    name: "Historical Tech Tree",
+    description: "A true rabbit hole for history and tech nerds",
+    category: "Other",
+    href: "https://www.historicaltechtree.com/",
+  },
+  {
+    name: "Family.co Values",
+    description: "Design is so much more than how things look",
+    category: "Reading",
+    href: "https://benji.org/family-values",
+  },
+  {
+    name: "Oliver Hamrin",
+    description: "Artwork as a sales motion? Go follow Oliver",
+    category: "Person",
+    href: "https://x.com/oliverhamrin",
+  },
+  {
+    name: "DHH",
+    description: "I wanna be like David when I grow up",
+    category: "Person",
+    href: "https://dhh.dk",
+  },
+  {
+    name: "Typography in Sci-Fi",
+    description: "Venn diagram for designers and Star Wars fans?",
+    category: "Reading",
+    href: "https://typesetinthefuture.com/",
+  },
+  {
+    name: "History of Software",
+    description: "Inspired me to restore old interfaces",
+    category: "Reading",
+    href: "https://historyofsoftware.org/",
+  },
+  {
+    name: "You and Your Research",
+    description: "Richard Hamming on what great look like",
+    category: "Reading",
+    href: "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
+  },
+];
+
 export default async function Home() {
   const [profile, contributions] = await Promise.all([
     getGitHubProfile(GITHUB_USERNAME),
@@ -184,7 +244,7 @@ export default async function Home() {
       </section>
 
       <section className="site-section timeline-section" style={{ "--stagger": 2 } as CSSProperties}>
-        <TimelineTabs work={timeline} tools={tools} />
+        <TimelineTabs work={timeline} tools={tools} bookmarks={bookmarks} />
       </section>
     </div>
   );
