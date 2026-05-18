@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useState } from "react";
 import type { ContributionDay } from "../lib/github";
 
 const SQUARE = 11;
@@ -21,8 +22,33 @@ const MONTH_NAMES = [
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
+const MONTH_NAMES_FULL = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function ordinal(day: number): string {
+  const mod100 = day % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${day}th`;
+  switch (day % 10) {
+    case 1: return `${day}st`;
+    case 2: return `${day}nd`;
+    case 3: return `${day}rd`;
+    default: return `${day}th`;
+  }
+}
+
+function formatTooltip(count: number, isoDate: string): string {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  const month = MONTH_NAMES_FULL[date.getUTCMonth()];
+  const day = ordinal(date.getUTCDate());
+  const noun = count === 1 ? "contribution" : "contributions";
+  const prefix = count === 0 ? "No contributions" : `${count} ${noun}`;
+  return `${prefix} on ${month} ${day}.`;
+}
+
 type GridCell =
-  | { kind: "data"; date: string; level: 0 | 1 | 2 | 3 | 4 }
+  | { kind: "data"; date: string; count: number; level: 0 | 1 | 2 | 3 | 4 }
   | { kind: "past-missing" }
   | { kind: "future" };
 
@@ -38,6 +64,7 @@ function buildGrid(days: ContributionDay[]): {
   const dataCells: GridCell[] = days.map((d) => ({
     kind: "data",
     date: d.date,
+    count: d.count,
     level: d.level,
   }));
   let cells: GridCell[] = [
@@ -82,9 +109,14 @@ export function ContributionGraph({
 }) {
   const { columns, monthLabels } = buildGrid(contributions);
   const gridWidth = columns.length * SQUARE + (columns.length - 1) * GAP;
+  const [tooltip, setTooltip] = useState<{
+    text: string;
+    x: number;
+    y: number;
+  } | null>(null);
 
   return (
-    <div>
+    <div className="relative">
       <div
         className="hover-card-calendar-label mb-[6px] flex justify-between"
         style={{ width: gridWidth }}
@@ -109,6 +141,7 @@ export function ContributionGraph({
               return <div key={`${colIdx}-${rowIdx}`} />;
             }
             const level = cell.kind === "data" ? cell.level : 0;
+            const isData = cell.kind === "data";
             return (
               <motion.div
                 key={`${colIdx}-${rowIdx}`}
@@ -119,6 +152,22 @@ export function ContributionGraph({
                   ease: "easeOut",
                   delay: colIdx * 0.035,
                 }}
+                onMouseEnter={
+                  isData
+                    ? (e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const parentRect =
+                          e.currentTarget.parentElement?.parentElement?.getBoundingClientRect();
+                        if (!parentRect) return;
+                        setTooltip({
+                          text: formatTooltip(cell.count, cell.date),
+                          x: rect.left - parentRect.left + rect.width / 2,
+                          y: rect.top - parentRect.top,
+                        });
+                      }
+                    : undefined
+                }
+                onMouseLeave={isData ? () => setTooltip(null) : undefined}
                 className="rounded-[2px]"
                 style={{ backgroundColor: LEVEL_COLORS[level] }}
               />
@@ -126,6 +175,18 @@ export function ContributionGraph({
           })
         )}
       </div>
+      {tooltip && (
+        <div
+          className="pointer-events-none absolute z-10 whitespace-nowrap rounded-md bg-[#2c2e33] px-2 py-1 text-[12px] font-medium text-white shadow-md"
+          style={{
+            left: tooltip.x,
+            top: tooltip.y,
+            transform: "translate(-50%, calc(-100% - 6px))",
+          }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </div>
   );
 }
