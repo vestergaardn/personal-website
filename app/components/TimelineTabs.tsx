@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AquaRadioGroup } from "./AquaRadio";
 
 export type WorkCategory = "Startup" | "Hobby";
@@ -47,7 +48,18 @@ export function TimelineTabs({
   tools: ToolEntry[];
   bookmarks: BookmarkEntry[];
 }) {
-  const [tab, setTab] = useState<Tab>("work");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const rawTab = searchParams.get("tab");
+  const tab: Tab =
+    rawTab === "tools" || rawTab === "bookmarks" ? rawTab : "work";
+
+  const setTab = (next: Tab) => {
+    const url = next === "work" ? pathname : `${pathname}?tab=${next}`;
+    router.replace(url, { scroll: false });
+  };
 
   const cards: { name: string; description: string; category: string; href?: string }[] =
     tab === "tools" ? tools : tab === "bookmarks" ? bookmarks : [];
