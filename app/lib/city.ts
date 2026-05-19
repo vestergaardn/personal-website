@@ -228,22 +228,29 @@ export function getShuffledCityId(current: CityId) {
   const currentBand = getSkyBandAtMinute(
     getMinuteOfDayInTimeZone(CITIES[current].timeZone),
   );
-  const storedDeck = getStoredShuffleDeck().filter((id) => id !== current);
-  const candidates =
-    storedDeck.length > 0
-      ? storedDeck
-      : SHUFFLE_CITY_IDS.filter((id) => id !== current);
-  const differentSkyCandidates = candidates.filter((id) => {
-    const candidateBand = getSkyBandAtMinute(
+
+  const hasDifferentSky = (id: CityId) =>
+    getSkyBandAtMinute(
       getMinuteOfDayInTimeZone(CITIES[id].timeZone),
-    );
-    return candidateBand.name !== currentBand.name;
-  });
+    ).name !== currentBand.name;
+
+  const deck = getStoredShuffleDeck().filter((id) => id !== current);
+  const fullPool = SHUFFLE_CITY_IDS.filter((id) => id !== current);
+
+  const deckDifferent = deck.filter(hasDifferentSky);
+  const fullDifferent = fullPool.filter(hasDifferentSky);
+
   const pool =
-    differentSkyCandidates.length > 0 ? differentSkyCandidates : candidates;
+    deckDifferent.length > 0
+      ? deckDifferent
+      : fullDifferent.length > 0
+        ? fullDifferent
+        : fullPool;
+
   const nextCityId = pool[Math.floor(Math.random() * pool.length)];
 
-  storeShuffleDeck(candidates.filter((id) => id !== nextCityId));
+  const baseDeck = deckDifferent.length > 0 ? deck : fullPool;
+  storeShuffleDeck(baseDeck.filter((id) => id !== nextCityId));
 
   return nextCityId;
 }
