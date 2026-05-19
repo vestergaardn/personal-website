@@ -173,6 +173,18 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
   },
+  {
+    name: "The Tyranny of Apps",
+    description: "Great reflections on the impact of coding agents",
+    category: "Video",
+    href: "https://andymatuschak.org/tat/",
+  },
+  {
+    name: "Barrels and Ammunition",
+    description: "My favorite heuristic for hiring",
+    category: "Reading",
+    href: "https://www.conordewey.com/blog/barrels-and-ammunition",
+  },
 ];
 
 export default async function Home() {
