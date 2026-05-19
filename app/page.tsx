@@ -256,7 +256,9 @@ export default async function Home() {
       </section>
 
       <section className="site-section timeline-section" style={{ "--stagger": 2 } as CSSProperties}>
-        <TimelineTabs work={timeline} tools={tools} bookmarks={bookmarks} />
+        <Suspense fallback={null}>
+          <TimelineTabs work={timeline} tools={tools} bookmarks={bookmarks} />
+        </Suspense>
       </section>
     </div>
   );
