@@ -126,19 +126,19 @@ const tools: ToolEntry[] = [
 
 const bookmarks: BookmarkEntry[] = [
   {
-    name: "Peter Thiel’s Religion",
+    name: "Peter Thiel’s religion",
     description: "My first stitch with mimetic theory. Life changing",
     category: "Reading",
     href: "https://perell.com/essay/peter-thiel/",
   },
   {
-    name: "Historical Tech Tree",
+    name: "Historical tech tree",
     description: "A true rabbit hole for history and tech nerds",
     category: "Other",
     href: "https://www.historicaltechtree.com/",
   },
   {
-    name: "Family.co Values",
+    name: "Family.co values",
     description: "Design is so much more than how things look",
     category: "Reading",
     href: "https://benji.org/family-values",
@@ -156,34 +156,46 @@ const bookmarks: BookmarkEntry[] = [
     href: "https://dhh.dk",
   },
   {
-    name: "Typography in Sci-Fi",
+    name: "Typography in sci-fi",
     description: "Venn diagram for designers and Star Wars fans?",
     category: "Reading",
     href: "https://typesetinthefuture.com/",
   },
   {
-    name: "History of Software",
+    name: "History of software",
     description: "Inspired me to restore old interfaces",
     category: "Reading",
     href: "https://historyofsoftware.org/",
   },
   {
-    name: "You and Your Research",
+    name: "You and your research",
     description: "Richard Hamming on what great look like",
     category: "Reading",
     href: "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
   },
   {
-    name: "The Tyranny of Apps",
+    name: "The tyranny of apps",
     description: "Great reflections on the impact of coding agents",
     category: "Video",
     href: "https://andymatuschak.org/tat/",
   },
   {
-    name: "Barrels and Ammunition",
+    name: "Barrels and ammunition",
     description: "My favorite heuristic for hiring",
     category: "Reading",
     href: "https://www.conordewey.com/blog/barrels-and-ammunition",
+  },
+  {
+    name: "Paul Graham",
+    description: "The essays I re-read the most",
+    category: "Person",
+    href: "https://paulgraham.com/articles.html",
+  },
+  {
+    name: "The family we earn",
+    description: "Ravi Gupta is a great. Here on friendship",
+    category: "Reading",
+    href: "https://www.rkg.blog/friendship.php",
   },
 ];
 
