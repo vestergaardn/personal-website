@@ -197,6 +197,18 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.rkg.blog/friendship.php",
   },
+  {
+    name: "First follower",
+    description: "A classic from Derek Sivers",
+    category: "Video",
+    href: "https://www.youtube.com/watch?v=fW8amMCVAJQ",
+  },
+  {
+    name: "The courage to be disliked",
+    description: "Intro to Adlerian psychology",
+    category: "Reading",
+    href: "https://www.goodreads.com/book/show/35239798-the-courage-to-be-disliked",
+  },
 ];
 
 export default async function Home() {
