@@ -209,6 +209,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.goodreads.com/book/show/35239798-the-courage-to-be-disliked",
   },
+  {
+    name: "Interface Craft",
+    description: "Paid collection of design principles",
+    category: "Reading",
+    href: "https://www.interfacecraft.dev/library",
+  },
 ];
 
 export default async function Home() {
