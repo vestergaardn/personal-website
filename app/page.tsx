@@ -215,6 +215,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.interfacecraft.dev/library",
   },
+  {
+    name: "Hand drawing data viz",
+    description: "The value of inefficient paths",
+    category: "Reading",
+    href: "https://www.dougmacdowell.com/50-hours-to-draw-some-lines.html",
+  },
 ];
 
 export default async function Home() {
