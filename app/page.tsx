@@ -274,7 +274,7 @@ export default async function Home() {
         <p className="mb-0">
           Feel free to reach out on{" "}
           <a
-            href="mailto:hello@vestergaardn.com"
+            href="mailto:chris.vestergaardn@gmail.com"
             className="font-bold text-[#ffffff] hover:text-[#ffffff]"
           >
             e-mail
