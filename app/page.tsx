@@ -221,6 +221,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.dougmacdowell.com/50-hours-to-draw-some-lines.html",
   },
+  {
+    name: "Not a Number",
+    description: "Blog posts on computer science fundamentals",
+    category: "Reading",
+    href: "https://www.nan.fyi/",
+  },
 ];
 
 export default async function Home() {
