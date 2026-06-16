@@ -63,10 +63,10 @@ const timeline: TimelineEntry[] = [
 
 const tools: ToolEntry[] = [
   {
-    name: "Codex",
+    name: "Claude",
     description: "Agentic coding assistant",
     category: "App",
-    href: "https://openai.com/codex/",
+    href: "https://claude.com/claude-code",
   },
   {
     name: "Field Notes",
