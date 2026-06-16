@@ -22,7 +22,7 @@ type TimelineEntry = {
   href?: string;
 };
 
-type ToolCategory = "App" | "Physical" | "Web" | "Skill";
+type ToolCategory = "App" | "Physical" | "Web" | "Skill" | "Framework";
 
 type ToolEntry = {
   name: string;
@@ -121,6 +121,12 @@ const tools: ToolEntry[] = [
     description: "Agentic skill to avoid sloppy code",
     category: "Skill",
     href: "https://github.com/mattpocock/skills#skills-for-real-engineers",
+  },
+  {
+    name: "StyleX",
+    description: "Strongly typed Tailwind alternative",
+    category: "Framework",
+    href: "https://stylexjs.com/",
   },
 ];
 
