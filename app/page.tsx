@@ -234,7 +234,7 @@ const bookmarks: BookmarkEntry[] = [
     href: "https://www.nan.fyi/",
   },
   {
-    name: "Steve Jobs commencement speech",
+    name: "Steve Jobs speech",
     description: "Makes me cry every time",
     category: "Video",
     href: "https://www.youtube.com/watch?v=UF8uR6Z6KLc",
