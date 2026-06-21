@@ -233,6 +233,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.nan.fyi/",
   },
+  {
+    name: "Steve Jobs commencement speech",
+    description: "Makes me cry every time",
+    category: "Video",
+    href: "https://www.youtube.com/watch?v=UF8uR6Z6KLc",
+  },
 ];
 
 export default async function Home() {
