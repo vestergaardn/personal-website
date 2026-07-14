@@ -96,7 +96,7 @@ const tools: ToolEntry[] = [
     name: "Xteink X3",
     description: "OS alternative to Kindle",
     category: "Physical",
-    href: "https://www.xteink.com/",
+    href: "https://productimpossible.com/articles/xteink-firmware-ecosystem/",
   },
   {
     name: "Mobbin",
