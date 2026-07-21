@@ -44,7 +44,7 @@ const timeline: TimelineEntry[] = [
   {
     project: "nine three quarters",
     type: "Free lab for builders backed by unicorn founders",
-    category: "Startup",
+    category: "Hobby",
     href: "https://www.ninethreequarters.com/",
   },
   {
