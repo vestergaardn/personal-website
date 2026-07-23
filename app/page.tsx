@@ -55,7 +55,7 @@ const timeline: TimelineEntry[] = [
   },
   {
     project: "Crosspoint fork",
-    type: "Favorite add is a tamagotchi styled reading streak",
+    type: "Tamagotchi styled reading streak and more",
     category: "Hobby",
     href: "https://github.com/vestergaardn/crosspoint-reader",
   },
