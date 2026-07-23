@@ -54,6 +54,12 @@ const timeline: TimelineEntry[] = [
     href: "https://tweaky.vercel.app/",
   },
   {
+    project: "Crosspoint fork",
+    type: "Favorite add is a tamagotchi styled reading streak",
+    category: "Hobby",
+    href: "https://github.com/vestergaardn/crosspoint-reader",
+  },
+  {
     project: "Postbuddy",
     type: "My first company. Now acquired",
     category: "Startup",
