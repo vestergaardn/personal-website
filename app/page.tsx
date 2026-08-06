@@ -43,7 +43,7 @@ type BookmarkEntry = {
 const timeline: TimelineEntry[] = [
   {
     project: "Stealth",
-    type: "Doing stealthy things with brilliant friends",
+    type: "Doing stealthy things in the voice space",
     category: "Startup",
   },
   {
