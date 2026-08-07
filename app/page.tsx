@@ -250,6 +250,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Video",
     href: "https://www.youtube.com/watch?v=UF8uR6Z6KLc",
   },
+  {
+    name: "Ears, use them",
+    description: "How to do sales by Lars Dalgaard",
+    category: "Reading",
+    href: "https://a16z.com/ears-use-them/",
+  },
 ];
 
 export default async function Home() {
