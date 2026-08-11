@@ -256,6 +256,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://a16z.com/ears-use-them/",
   },
+  {
+    name: "30 percent feedback",
+    description: "Advice on seeking early and tough criticism",
+    category: "Reading",
+    href: "https://humbledmba.com/thirty-percent-feedback/",
+  },
 ];
 
 export default async function Home() {
