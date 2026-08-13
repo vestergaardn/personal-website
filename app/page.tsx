@@ -262,6 +262,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://humbledmba.com/thirty-percent-feedback/",
   },
+  {
+    name: "Make Something Wonderful",
+    description: "I’m lucky to own a physical copy",
+    category: "Reading",
+    href: "https://book.stevejobsarchive.com/",
+  },
 ];
 
 export default async function Home() {
