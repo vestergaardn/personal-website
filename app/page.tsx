@@ -139,6 +139,12 @@ const tools: ToolEntry[] = [
     category: "Framework",
     href: "https://stylexjs.com/",
   },
+  {
+    name: "Notion Calendar",
+    description: "Not great, but yet the best",
+    category: "App",
+    href: "https://www.notion.com/product/calendar",
+  },
 ];
 
 const bookmarks: BookmarkEntry[] = [
