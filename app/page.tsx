@@ -145,6 +145,12 @@ const tools: ToolEntry[] = [
     category: "App",
     href: "https://www.notion.com/product/calendar",
   },
+  {
+    name: "Grok Bot",
+    description: "It just works. I use it for all sorts of boring work",
+    category: "App",
+    href: "https://x.ai/bot",
+  },
 ];
 
 const bookmarks: BookmarkEntry[] = [
