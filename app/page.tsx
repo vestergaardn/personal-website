@@ -147,7 +147,7 @@ const tools: ToolEntry[] = [
   },
   {
     name: "Grok Bot",
-    description: "It just works. I use it for all sorts of boring work",
+    description: "I ask it to do all my repetitive tasks",
     category: "App",
     href: "https://x.ai/bot",
   },
