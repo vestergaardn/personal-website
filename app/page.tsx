@@ -151,6 +151,12 @@ const tools: ToolEntry[] = [
     category: "App",
     href: "https://x.ai/bot",
   },
+  {
+    name: "GameBoy Advance",
+    description: "Tool to relax the mind",
+    category: "Physical",
+    href: "https://en.wikipedia.org/wiki/Game_Boy_Advance",
+  },
 ];
 
 const bookmarks: BookmarkEntry[] = [
