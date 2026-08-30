@@ -42,7 +42,7 @@ type BookmarkEntry = {
 
 const timeline: TimelineEntry[] = [
   {
-    project: "The Agentic Data Co. (YC F26)",
+    project: "The Agentic Data Co.",
     type: "Data for training speech models",
     category: "Startup",
   },
