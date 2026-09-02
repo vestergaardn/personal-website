@@ -286,6 +286,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://book.stevejobsarchive.com/",
   },
+  {
+    name: "The Beginning of Infinity",
+    description: "Better than university and only 30 bucks",
+    category: "Reading",
+    href: "https://www.goodreads.com/book/show/10483171-the-beginning-of-infinity",
+  },
 ];
 
 export default async function Home() {
