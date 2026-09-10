@@ -286,6 +286,12 @@ const bookmarks: BookmarkEntry[] = [
     category: "Reading",
     href: "https://www.goodreads.com/book/show/10483171-the-beginning-of-infinity",
   },
+  {
+    name: "Lifemaxxing",
+    description: "A richer way to spend time",
+    category: "Reading",
+    href: "https://docs.google.com/document/u/0/d/12PYUgAKSKqGQxwg77mMplButcthLosUP/mobilebasic",
+  },
 ];
 
 export default async function Home() {
