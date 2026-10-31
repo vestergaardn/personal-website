@@ -151,6 +151,12 @@ const tools: ToolEntry[] = [
     category: "Physical",
     href: "https://en.wikipedia.org/wiki/Game_Boy_Advance",
   },
+  {
+    name: "Skullet",
+    description: "Dynamic skeleton states",
+    category: "Framework",
+    href: "https://skullet.lochie.me/",
+  },
 ];
 
 const bookmarks: BookmarkEntry[] = [
