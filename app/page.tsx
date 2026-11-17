@@ -161,6 +161,12 @@ const tools: ToolEntry[] = [
 
 const bookmarks: BookmarkEntry[] = [
   {
+    name: "Doug John Miller",
+    description: "Master of drawing isometric scenes",
+    category: "Person",
+    href: "https://www.dougjohnmiller.com/",
+  },
+  {
     name: "Peter Thiel’s religion",
     description: "My first stitch with mimetic theory. Life changing",
     category: "Reading",
