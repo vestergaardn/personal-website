@@ -45,6 +45,7 @@ const timeline: TimelineEntry[] = [
     project: "The Agentic Data Co.",
     type: "Data for training speech models",
     category: "Startup",
+    href: "https://www.ycombinator.com/founders/christian-vestergaard",
   },
   {
     project: "nine three quarters",
